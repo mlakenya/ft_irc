@@ -1,0 +1,25 @@
+#include "../includes/Server.hpp"
+
+int main(int argc, char **argv)
+{
+	Server server(argv[1], argv[2]);
+
+	if (argc != 3)
+	{
+		//TODO
+		std::cout << "ERROR. Invalid number of arguments. Example: ... " << std::endl;
+	}
+	try
+	{
+		server.Prepare();
+
+		ServerManager(server);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+
+
+
+}

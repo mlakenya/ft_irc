@@ -7,5 +7,11 @@
 # include <vector>
 # include <map>
 # include <poll.h>
+# include <sys/types.h>
+# include <netdb.h>
+# include <cstring>
+# include <exception>
+
+# define FAILURE	 -1
 
 #endif

@@ -9,11 +9,16 @@ class Server
 private:
 	int						_server_socket;
 	std::map<int, Client>	_clients;
-	static int				_port;
-	std::string				_passwd;
+	static char *			_port;
+	static std::string		_passwd;
 
 public:
+	Server(char *port, char* password);
+	~Server();
 
+	void Server::Prepare();
+
+	int Server::GetServerSocket();
 };
 
 #endif
