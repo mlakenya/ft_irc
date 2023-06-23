@@ -9,16 +9,24 @@ class Server
 private:
 	int						_server_socket;
 	std::map<int, Client>	_clients;
-	static char *			_port;
-	static std::string		_passwd;
+	const char *			_port;
+	const std::string		_passwd;
+
+	void AddClient(int client_socket, std::vector<pollfd> *new_pfds);
+	void ServerIsFull(int client_socket);
+	void DelClient(int client_socket);
 
 public:
 	Server(char *port, char* password);
 	~Server();
 
-	void Server::Prepare();
+	std::vector<pollfd>		_pfds;
 
-	int Server::GetServerSocket();
+	void Prepare();
+	void CreateConnection(std::vector<pollfd> *new_pfds);
+	void HandleClientRequest(int client_fd);
+
+	int GetServerSocket();
 };
 
 #endif

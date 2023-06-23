@@ -11,7 +11,12 @@
 # include <netdb.h>
 # include <cstring>
 # include <exception>
+# include <unistd.h>
+# include <algorithm>
+# include <sstream>
 
-# define FAILURE	 -1
+# define FAILURE		-1
+# define MAX_CLIENT 	11
+# define BUFFER_SIZE	1024
 
 #endif

@@ -1,5 +1,8 @@
 #include "../includes/Server.hpp"
 
+// TODO 
+void ServerManager(Server *server);
+
 int main(int argc, char **argv)
 {
 	Server server(argv[1], argv[2]);
@@ -8,12 +11,13 @@ int main(int argc, char **argv)
 	{
 		//TODO
 		std::cout << "ERROR. Invalid number of arguments. Example: ... " << std::endl;
+		return 1;
 	}
 	try
 	{
 		server.Prepare();
 
-		ServerManager(server);
+		ServerManager(&server);
 	}
 	catch(const std::exception& e)
 	{

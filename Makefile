@@ -1,9 +1,9 @@
 NAME		= ircserv
 
-SRCS		= 	main.cpp 			\
-				ServerManager.cpp 	\
-				Client.cpp			\
-				Server.cpp			\
+SRCS		= 	main.cpp				 			\
+				server_managing/ServerManager.cpp 	\
+				classes/Client.cpp					\
+				classes/Server.cpp				
 
 
 
@@ -13,7 +13,7 @@ DIR_OBJS	= objs/
 
 INCLUDES	=	Client.hpp 			\
 				Server.hpp			\
-				stdafx				\
+				stdafx				
 
 OBJS		= ${SRCS:%.cpp=${DIR_OBJS}%.o}
 
@@ -27,7 +27,7 @@ RM 			= rm -f
 
 all:	${NAME}
 
-${NAME} : ${OBJS}  ${INCLUDES} 
+${NAME} : ${OBJS}  #${INCLUDES} 
 	${CXX} $^ -o $@
 
 ${OBJS} : ${DIR_OBJS}%.o: ${DIR_SRCS}%.cpp
