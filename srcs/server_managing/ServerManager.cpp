@@ -1,7 +1,5 @@
 #include "Server.hpp"
 
-
-
 void ServerManager(Server *server)
 {
 	std::vector<pollfd> new_pfds;
@@ -26,12 +24,11 @@ void ServerManager(Server *server)
 		socket_it = server->_pfds.begin();
 		while (socket_it != server->_pfds.end())
 		{
-			std::cout << "Check socket number " << socket_it->fd << std::endl;
 			// Checking sockets for occurred events.
 			// POLLIN - we can now read from this socket.
 			// POLLOUT - we can write to this socket.
 			if (socket_it->revents & POLLIN)
-			{	
+			{
 				try
 				{
 					// Handle server socket events
@@ -41,14 +38,14 @@ void ServerManager(Server *server)
 					else
 						server->HandleClientRequest(socket_it->fd);
 				}
-				catch(std::exception ex)
+				catch(std::runtime_error ex)
 				{
 					std::cout << ex.what() << std::endl;
 					break;
 				}
 			}
 			else if (socket_it->revents & POLLOUT)
-				;
+			 	server->MakeResponse(socket_it->fd);
 			else if (socket_it->revents & POLLERR)
 				;
 
@@ -56,6 +53,5 @@ void ServerManager(Server *server)
 		}
 		server->_pfds.insert(server->_pfds.end(), new_pfds.begin(), new_pfds.end());
 		new_pfds.clear();
-		std::cout << "End check socket" << std::endl;
 	}
 }

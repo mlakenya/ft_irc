@@ -3,7 +3,8 @@ NAME		= ircserv
 SRCS		= 	main.cpp				 			\
 				server_managing/ServerManager.cpp 	\
 				classes/Client.cpp					\
-				classes/Server.cpp				
+				classes/Server.cpp					\
+				parsing/Parser.cpp
 
 
 
@@ -13,7 +14,10 @@ DIR_OBJS	= objs/
 
 INCLUDES	=	Client.hpp 			\
 				Server.hpp			\
-				stdafx				
+				stdafx.hpp			\
+				CmdList.hpp			\
+				functions.hpp
+
 
 OBJS		= ${SRCS:%.cpp=${DIR_OBJS}%.o}
 

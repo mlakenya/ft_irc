@@ -1,8 +1,5 @@
 #include "../includes/Server.hpp"
 
-// TODO 
-void ServerManager(Server *server);
-
 int main(int argc, char **argv)
 {
 	Server server(argv[1], argv[2]);
