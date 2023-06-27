@@ -18,11 +18,11 @@ private:
 	std::string		_nick;
 	std::string		_username;
 	std::string		_full_name;
-	UserStatus		status;
 
 public:
 	std::string		_recv_buff;
 	std::string		_send_buff;
+	UserStatus		status;
 
 	Client(int fd);
 	~Client();
