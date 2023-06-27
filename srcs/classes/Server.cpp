@@ -84,8 +84,8 @@ void Server::HandleClientRequest(int client_fd)
 
 		if (client->_recv_buff.find("\r\n") != std::string::npos)
 		{
-			cmdList *c = NULL;
-			ParseMessage(client->_recv_buff, &c);
+			cmdList *cmds = NULL;
+			ParseMessage(client->_recv_buff, &cmds);
 			client->_recv_buff.clear();
 			/*    ------- Check parsing   -------- 
 
@@ -107,10 +107,8 @@ void Server::HandleClientRequest(int client_fd)
 			*/
 
 
-			
-
 			// TODO
-			//Execute(c);
+			Execute(client, cmds);
 			//Free commands
 		}
 	}
@@ -203,4 +201,9 @@ void Server::DelClient(int client_socket)
 int Server::GetServerSocket()
 {
 	return _server_socket;
+}
+
+std::string Server::GetPassword()
+{
+	return this->_passwd;
 }

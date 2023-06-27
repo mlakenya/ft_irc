@@ -4,7 +4,8 @@ SRCS		= 	main.cpp				 			\
 				server_managing/ServerManager.cpp 	\
 				classes/Client.cpp					\
 				classes/Server.cpp					\
-				parsing/Parser.cpp
+				parsing/Parser.cpp					\
+				execute/Executer.cpp			
 
 
 

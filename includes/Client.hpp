@@ -10,6 +10,7 @@ enum UserStatus
 	ONLINE,
 	DELETED
 };
+
 class Client
 {
 private:

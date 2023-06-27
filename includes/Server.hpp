@@ -31,6 +31,7 @@ public:
 	void MakeResponse(int client_fd);
 
 	int GetServerSocket();
+	std::string GetPassword();
 };
 
 #endif

@@ -1,6 +1,8 @@
 #ifndef STDAFX_HPP
 # define STDAFX_HPP
 
+/* Includes */
+
 # include <iostream>
 # include <string>
 # include <sys/socket.h>
@@ -15,8 +17,15 @@
 # include <algorithm>
 # include <sstream>
 
+/* Defines */
+
 # define FAILURE		-1
 # define MAX_CLIENT 	11
 # define BUFFER_SIZE	1024
+
+/* Global */
+
+extern std::map<std::string, void(*)()>	command_funcs;
+extern bool								shutdown_signal;
 
 #endif

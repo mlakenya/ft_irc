@@ -14,10 +14,9 @@ void ParseMessage(std::string message, cmdList **commands)
 	{
 		trim(line);
 		if (line.empty())
-		{
 			continue;
-		}
 
+		// Add command to list.
 		if (lst != NULL)
 		{
 			lst->next = CreateCmdList();
@@ -75,7 +74,6 @@ void ParseMessage(std::string message, cmdList **commands)
 		if (*commands != NULL)
 			commands = &lst;		
 	}
-	
 }
 
 void trim(std::string& str)
