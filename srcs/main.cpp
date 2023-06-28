@@ -1,12 +1,11 @@
 #include "../includes/Server.hpp"
+#include "../includes/Commands.hpp"
 
 bool shutdown_signal = false;
-std::map<std::string, void(*)()> command_funcs;
+std::map<std::string, void(*)(Server *, Client *, cmdList *)> command_funcs;
 
 int main(int argc, char **argv)
-{
-	Server server(argv[1], argv[2]);
-	
+{	
 	if (argc != 3)
 	{
 		//TODO
@@ -15,6 +14,7 @@ int main(int argc, char **argv)
 	}
 	try
 	{
+		Server server(argv[1], argv[2]);
 		server.Prepare();
 		InitCommandFunctions();
 		ServerManager(&server);
@@ -28,7 +28,7 @@ int main(int argc, char **argv)
 // TODO
 void InitCommandFunctions()
 {
-	command_funcs["default"] = InitCommandFunctions;
+	// command_funcs["default"] = *InitCommandFunctions;
 	// command_funcs["INVITE"] = INVITE;
 	// command_funcs["JOIN"] = JOIN;
 	// command_funcs["KICK"] = KICK;
@@ -46,5 +46,5 @@ void InitCommandFunctions()
 	// command_funcs["QUIT"] = QUIT;
 	// command_funcs["TOPIC"] = TOPIC;
 	// command_funcs["USER"] = USER;
-	// command_funcs["PASS"] = PASS;
+	command_funcs["PASS"] = *PASS;
 }

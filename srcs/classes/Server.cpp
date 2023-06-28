@@ -87,28 +87,29 @@ void Server::HandleClientRequest(int client_fd)
 			cmdList *cmds = NULL;
 			ParseMessage(client->_recv_buff, &cmds);
 			client->_recv_buff.clear();
-			/*    ------- Check parsing   -------- 
+			// /*   ------- Check parsing   -------- 
 
 			std::cout << "Full message: " << client->_recv_buff << std::endl;
 			std::cout << "Parcing:" << std::endl << std::endl;
-			while (c != NULL)
+			cmdList *tmp = cmds;
+			while (tmp != NULL)
 			{
-				std::cout << "Prefix: " << c->prefix << std::endl;
-				std::cout << "Cmd: " << c->command << std::endl;
+				std::cout << "Prefix: " << tmp->prefix << std::endl;
+				std::cout << "Cmd: " << tmp->command << std::endl;
 
 				std::cout << "Params: ";
-				for (int i = 0; i < (int)c->parameters.size(); i++)
-					std::cout << c->parameters[i] << " ";
+				for (int i = 0; i < (int)tmp->parameters.size(); i++)
+					std::cout << tmp->parameters[i] << " ";
 				std::cout << std::endl;
 
-				std::cout << "Trailing: " << c->trailing << std::endl << std::endl;
-				c = c->next;
+				std::cout << "Trailing: " << tmp->trailing << std::endl << std::endl;
+				tmp = tmp->next;
 			}
-			*/
+			// */
 
 
 			// TODO
-			Execute(client, cmds);
+			Execute(this, client, cmds);
 			//Free commands
 		}
 	}

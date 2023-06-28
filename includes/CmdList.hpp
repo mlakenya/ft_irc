@@ -1,3 +1,6 @@
+#ifndef CMDLIST_HPP
+# define CMDLIST_HPP
+
 #include "stdafx.hpp"
 
 // It's a linked list that stores parsed lines
@@ -10,3 +13,5 @@ struct cmdList
 
 	cmdList *next;
 };
+
+#endif

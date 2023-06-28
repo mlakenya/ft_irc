@@ -25,7 +25,6 @@
 
 /* Global */
 
-extern std::map<std::string, void(*)()>	command_funcs;
 extern bool								shutdown_signal;
 
 #endif

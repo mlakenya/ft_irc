@@ -7,7 +7,7 @@ class Server;
 
 void ServerManager(Server *server);
 void ParseMessage(std::string message, cmdList **commands);
-void Execute(Client *client, cmdList * cmds);
+void Execute(Server *server, Client *client, cmdList * cmds);
 void InitCommandFunctions();
 
 #endif

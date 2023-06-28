@@ -22,6 +22,7 @@ void ServerManager(Server *server)
 			throw std::runtime_error("ERROR. Poll failed");
 
 		socket_it = server->_pfds.begin();
+		// std::
 		while (socket_it != server->_pfds.end())
 		{
 			// Checking sockets for occurred events.
