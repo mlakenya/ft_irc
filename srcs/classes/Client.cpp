@@ -9,6 +9,12 @@ Client::~Client()
 	(void)_fd;
 }
 
+/*
+*	۝۝۝۝۝۝۝۝۝۝۝۝۝۝۝۝۝
+*	۝         ACCESSORS          ۝
+*	۝۝۝۝۝۝۝۝۝۝۝۝۝۝۝۝۝
+*/
+
 UserStatus Client::GetStatus()
 {
 	return this->_status;
@@ -29,9 +35,12 @@ void Client::SetStatus(UserStatus status)
 
 	if (status == ONLINE)
 	{
-		if (_status == AUTHENTICATION && !_nick.empty() \
+		if (_status == AUTHENTICATION && !_nickname.empty() \
 			&& !_username.empty())
-			_status = status;
+		{
+			this->_send_buff += "You're wellcome!\r\n";
+			this->_status = status;
+		}
 		else
 			return ;
 	}
@@ -44,4 +53,29 @@ void Client::SetStatus(UserStatus status)
 			return ;
 	}
 
+}
+
+std::string	Client::GetNickname()
+{
+	return this->_nickname;
+}
+
+void Client::SetNickname(std::string nickname)
+{
+	this->_nickname = nickname;
+}
+
+std::string	Client::GetUsername()
+{
+	return this->_username;
+}
+
+void Client::SetUsername(std::string username)
+{
+	this->_username = username;
+}
+
+void Client::SetFullName(std::string full_name)
+{
+	this->_full_name = full_name;
 }

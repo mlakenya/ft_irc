@@ -6,8 +6,9 @@ SRCS		= 	main.cpp				 			\
 				classes/Server.cpp					\
 				parsing/Parser.cpp					\
 				execute/Executer.cpp				\
-				execute/commands/PASS.cpp
-
+				execute/commands/PASS.cpp			\
+				execute/commands/NICK.cpp			\
+				execute/commands/USER.cpp			\
 
 
 DIR_SRCS	= srcs/

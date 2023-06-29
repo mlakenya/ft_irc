@@ -16,7 +16,7 @@ class Client
 private:
 	int				_fd;
 
-	std::string		_nick;
+	std::string		_nickname;
 	std::string		_username;
 	std::string		_full_name;
 	UserStatus		_status;
@@ -27,8 +27,15 @@ public:
 
 	Client(int fd);
 	~Client();
+
+	/*    ===== Accessors =====     */
 	UserStatus	GetStatus();
 	void		SetStatus(UserStatus);
+	std::string	GetNickname();
+	void		SetNickname(std::string nickname);
+	std::string	GetUsername();
+	void		SetUsername(std::string username);
+	void		SetFullName(std::string full_name);
 };
 
 #endif

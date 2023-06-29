@@ -37,7 +37,7 @@ void InitCommandFunctions()
 	// command_funcs["MODE"] = MODE;
 	// command_funcs["MOTD"] = MOTD;
 	// command_funcs["NAMES"] = NAMES;
-	// command_funcs["NICK"] = NICK;
+	command_funcs["NICK"] = *NICK;
 	// command_funcs["NOTICE"] = NOTICE;
 	// command_funcs["OPER"] = OPER;
 	// command_funcs["PART"] = PART;
@@ -45,6 +45,6 @@ void InitCommandFunctions()
 	// command_funcs["PRIVMSG"] = PRIVMSG;
 	// command_funcs["QUIT"] = QUIT;
 	// command_funcs["TOPIC"] = TOPIC;
-	// command_funcs["USER"] = USER;
+	command_funcs["USER"] = *USER;
 	command_funcs["PASS"] = *PASS;
 }

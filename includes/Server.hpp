@@ -5,6 +5,7 @@
 # include "Client.hpp"
 # include "CmdList.hpp"
 # include "functions.hpp"
+# include "ServerResponces.hpp"
 
 class Server
 {
@@ -32,6 +33,7 @@ public:
 
 	int GetServerSocket();
 	std::string GetPassword();
+	std::map<int, Client *> *GetClients();
 };
 
 #endif

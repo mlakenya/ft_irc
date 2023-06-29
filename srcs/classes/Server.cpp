@@ -87,6 +87,8 @@ void Server::HandleClientRequest(int client_fd)
 			cmdList *cmds = NULL;
 			ParseMessage(client->_recv_buff, &cmds);
 			client->_recv_buff.clear();
+
+			// TODO delete this shit
 			// /*   ------- Check parsing   -------- 
 
 			std::cout << "Full message: " << client->_recv_buff << std::endl;
@@ -107,10 +109,7 @@ void Server::HandleClientRequest(int client_fd)
 			}
 			// */
 
-
-			// TODO
 			Execute(this, client, cmds);
-			//Free commands
 		}
 	}
 	else
@@ -207,4 +206,9 @@ int Server::GetServerSocket()
 std::string Server::GetPassword()
 {
 	return this->_passwd;
+}
+
+std::map<int, Client *> *Server::GetClients()
+{
+	return &this->_clients;
 }

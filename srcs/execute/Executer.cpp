@@ -3,12 +3,12 @@
 #include "../../includes/CmdList.hpp"
 #include "../../includes/Commands.hpp"
 
-// TODO
 void listDelete(cmdList **cmds, cmdList *cmd);
 
 void Execute(Server *server, Client *client, cmdList *cmds)
 {
 	std::cout << "Execute " << client->GetStatus() << std::endl;
+	
 	// Do not execute commands if the client is deleted.
 	if (client->GetStatus() == DELETED)
 		return ;
@@ -28,7 +28,7 @@ void Execute(Server *server, Client *client, cmdList *cmds)
 			}
 		if (client->GetStatus() == AUTHENTICATION)
 			if (cmd->command != "NICK"
-				|| cmd->command != "USER")
+				&& cmd->command != "USER")
 				{
 					cmd = cmd->next;
 					continue;
@@ -39,9 +39,8 @@ void Execute(Server *server, Client *client, cmdList *cmds)
 			&& (cmd->command != "PASS" || client->GetStatus() == PASSWORD))
 			command_funcs[cmd->command](server, client, cmds);
 		else
-			client->_send_buff += "Error! unknown command."; // TODO unknown command.
+			client->_send_buff += ERR_UNKNOWN_COMMAND(client->GetNickname(), cmds->command);
 
-		// TODO Check
 		cmdList *next = cmd->next;
 		listDelete(&cmds, cmd);
 
@@ -61,7 +60,7 @@ void listDelete(cmdList **cmds, cmdList *cmd)
 	{
 		while (tmp->next != NULL && tmp->next != cmd)
 			tmp = tmp->next;
-		
+
 		tmp->next = cmd->next;
 	}
 	delete cmd;
