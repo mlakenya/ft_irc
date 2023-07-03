@@ -32,6 +32,8 @@ void NICK(Server *server, Client *client, cmdList *cmd)
 			client->SetNickname(nickname);
 			oldnick = nickname;
 			client->SetStatus(ONLINE);
+			if (client->GetStatus() == ONLINE)
+				server->SendWelcomeMsg(client);
 		}
 		else
 		{

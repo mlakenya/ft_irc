@@ -8,7 +8,7 @@ void USER(Server *server, Client *client, cmdList *cmd)
 	std::string realname;
 	(void)server;
 
-	if (cmd->parameters.size() < 1)
+	if (cmd->parameters.size() < 3)
 	{
 		client->_send_buff += ERR_NEED_MORE_PARAMS(client->GetNickname(), cmd->command);
 		return ;
@@ -25,5 +25,7 @@ void USER(Server *server, Client *client, cmdList *cmd)
 		client->SetUsername(username);
 		client->SetFullName(realname);
 		client->SetStatus(ONLINE);
+		if (client->GetStatus() == ONLINE)
+			server->SendWelcomeMsg(client);
 	}
 }

@@ -3,13 +3,15 @@
 void 		trim(std::string& str);
 cmdList 	*CreateCmdList();
 
-void ParseMessage(std::string message, cmdList **commands)
+void ParseMessage(Client *client, std::string message)
 {
 	std::stringstream	ss(message);
 	std::string			line;
+	cmdList				*commands;
 	cmdList 			*lst = NULL;
 
 
+	commands = client->GetCmdBuff();
 	while (getline(ss, line))
 	{
 		trim(line);
@@ -25,7 +27,12 @@ void ParseMessage(std::string message, cmdList **commands)
 		else
 		{
 			lst = CreateCmdList();
-			*commands = lst;
+			// If commands already existe, add new commands to them.
+			// Otherwise, initiate commands with lst.
+			if (commands == NULL)
+				client->SetCmdBuff(lst);
+			else
+				commands->next = lst;
 		}
 
 		std::string copy = line;
@@ -68,11 +75,6 @@ void ParseMessage(std::string message, cmdList **commands)
 		std::stringstream ss(copy);
 		while (ss >> param)
 			lst->parameters.push_back(param);
-
-
-		// Adding parsed string to the list of commands.
-		if (*commands != NULL)
-			commands = &lst;		
 	}
 }
 

@@ -8,21 +8,24 @@ int main(int argc, char **argv)
 {	
 	if (argc != 3)
 	{
-		//TODO
-		std::cout << "ERROR. Invalid number of arguments. Example: ... " << std::endl;
+		std::cout << RED << "ERROR! Invalid arguments. " << RESET << "Usage: ./ircserv <port> <password>" << std::endl;
 		return 1;
 	}
+	
+	Server *server;
 	try
 	{
-		Server server(argv[1], argv[2]);
-		server.Prepare();
+		server = new Server(argv[1], argv[2]);
+		server->Prepare();
 		InitCommandFunctions();
-		ServerManager(&server);
+		ServerManager(server);
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr << e.what() << '\n';
+		std::cerr << RED << e.what() << RESET << '\n';
 	}
+	
+	delete server;
 }
 
 // TODO

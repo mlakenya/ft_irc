@@ -2,6 +2,7 @@
 # define CLIENT_HPP
 
 # include "stdafx.hpp"
+# include "CmdList.hpp"
 
 enum UserStatus
 {
@@ -20,6 +21,7 @@ private:
 	std::string		_username;
 	std::string		_full_name;
 	UserStatus		_status;
+	cmdList			*_cmd_buff;
 
 public:
 	std::string		_recv_buff;
@@ -36,6 +38,9 @@ public:
 	std::string	GetUsername();
 	void		SetUsername(std::string username);
 	void		SetFullName(std::string full_name);
+	cmdList		*GetCmdBuff();
+	void 		SetCmdBuff(cmdList *cmd_buff);
+	void		DeleteCommand(cmdList *cmd);
 };
 
 #endif

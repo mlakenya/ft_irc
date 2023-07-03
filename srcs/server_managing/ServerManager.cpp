@@ -12,8 +12,7 @@ void ServerManager(Server *server)
 
 	while (true)
 	{
-		// TODO add comments.
-		int num_events;
+		int num_events; // Number of happened events after poll().
 		std::vector<pollfd>::iterator socket_it;
 
 		// Waiting for the events on sockets.
@@ -22,7 +21,6 @@ void ServerManager(Server *server)
 			throw std::runtime_error("ERROR. Poll failed");
 
 		socket_it = server->_pfds.begin();
-		// std::
 		while (socket_it != server->_pfds.end())
 		{
 			// Checking sockets for occurred events.
@@ -47,7 +45,7 @@ void ServerManager(Server *server)
 			}
 			else if (socket_it->revents & POLLOUT)
 			 	server->MakeResponse(socket_it->fd);
-			else if (socket_it->revents & POLLERR)
+			else if (socket_it->revents & POLLERR) // TODO
 				;
 
 			socket_it++;
