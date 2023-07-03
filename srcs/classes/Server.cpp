@@ -211,8 +211,24 @@ void Server::DelClient(int client_socket)
 
 void Server::SendWelcomeMsg(Client *client)
 {
-	client->_send_buff.append(" \n \n              WELCOME TO OUR FT_IRC SERVER!!!\n");
-	client->_send_buff.append("                  Have fun and be nice :)\n");
+	client->_send_buff.append("\n \n✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧\n");
+	client->_send_buff.append("✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧\n");
+	client->_send_buff.append("✧✧✧✧✧✧✧✧✧✧✧꧁ WELCOME TO OUR FT_IRC SERVER!!!꧂✧✧✧✧✧✧✧✧✧✧✧\n");
+	client->_send_buff.append("✧✧✧✧✧✧✧✧✧✧✧(´ ･ᴗ･`)✧✧✧✧＼(￣▽￣)／✧✧✧✧(´･ᴗ･ ` )✧✧✧✧✧✧✧✧✧\n");
+	client->_send_buff.append("✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧\n");
+	client->_send_buff.append("	                   ⣀⣤⠚⠛⠛⠋⠉⠉⠉⠉⠉⠉⠉⠉⠙⠛⠛⠦⣄⣀\n");
+	client->_send_buff.append("                 ⣀⠿⠛                      ⠙⢳⡄ \n");
+	client->_send_buff.append("               ⢠⡿⠋                         ⠛⢷⣄\n");
+	client->_send_buff.append("               ⣿⡇   Have fun and be nice     ⠘⣿\n");
+	client->_send_buff.append("               ⣿⡇                          ⣠⡴⠟\n");
+	client->_send_buff.append("               ⠙⢧                        ⣀⡼\n");
+	client->_send_buff.append("                 ⠉⠛⠻⣷⣶⣤⣤⣄⣀⣀⣀⣀⣀⣀⣀⣠⣤⣤⣴⣶⠟⠛\n");
+	client->_send_buff.append("                            ⣾⠏\n");
+	client->_send_buff.append("                        ⣠⣾⡿⠁\n");
+	client->_send_buff.append("                      ⣴⣾⠛⠋\n");
+	client->_send_buff.append("                     ⣟⠋\n");
+	client->_send_buff.append("                     ⠉\n");
+
 	std::stringstream ss;
 	client->_send_buff.append(this->_welcomeMessages[0] + "\r\n");
 	ss << this->_clients.size();
