@@ -125,26 +125,29 @@ void Server::HandleClientRequest(int client_fd)
 
 void Server::MakeResponse(int client_fd)
 {
+	Client *client;
+	size_t buff_end;
+	std::string toSend;
+
 	// Searching for a client by his socket.
 	std::map<int, Client *>::iterator it = this->_clients.find(client_fd);
 	if (it == this->_clients.end())
 		throw std::runtime_error("ERROR. Client is not found.");
 
-	// Sending data from send buffer to a client.
-	Client *client = it->second;
-	int sent_bytes = send(client_fd, client->_send_buff.c_str(), client->_send_buff.size(), 0);
+	// Sending data from send buffer(before first \r\n) to a client.
+	client = it->second;
+	buff_end = client->_send_buff.find("\r\n");
+	if (buff_end == std::string::npos)
+		return ;
+	toSend = client->_send_buff.substr(0, buff_end + 2);
+	client->_send_buff.erase(0, buff_end + 2);
+	int sent_bytes = send(client_fd, toSend.c_str(), toSend.size(), 0);
 	if (sent_bytes == FAILURE)
 		throw std::runtime_error("ERROR! Send failed");
 
 	// Printing sent data.
-	std::istringstream buf(client->_send_buff);
-	std::string line;
-	while (getline(buf, line))
-		std::cout << "Message sent to client #" << client_fd
-				  << ": " << line << std::endl;
-
-	//
-	client->_send_buff.clear();
+	std::cout << "Message sent to client №" << client_fd
+				  << ": " << toSend << std::endl;
 }
 
 /*
