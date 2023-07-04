@@ -18,9 +18,10 @@ DIR_OBJS	= objs/
 
 INCLUDES	=	Client.hpp 			\
 				Server.hpp			\
+				Channel.hpp			\
 				stdafx.hpp			\
 				CmdList.hpp			\
-				functions.hpp
+				functions.hpp		\
 
 
 OBJS		= ${SRCS:%.cpp=${DIR_OBJS}%.o}

@@ -10,7 +10,7 @@ void ServerManager(Server *server)
 
 	server->_pfds.push_back(poll_server_socket);
 
-	while (true)
+	while (!shutdown_signal)
 	{
 		int num_events; // Number of happened events after poll().
 		std::vector<pollfd>::iterator socket_it;

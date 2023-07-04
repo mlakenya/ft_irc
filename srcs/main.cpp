@@ -4,6 +4,12 @@
 bool shutdown_signal = false;
 std::map<std::string, void(*)(Server *, Client *, cmdList *)> command_funcs;
 
+static void	set_shutdown_signal(int signal)
+{
+	(void)signal;
+	shutdown_signal = true;
+}
+
 int main(int argc, char **argv)
 {	
 	if (argc != 3)
@@ -12,6 +18,7 @@ int main(int argc, char **argv)
 		return 1;
 	}
 	
+	signal(SIGINT, set_shutdown_signal);
 	Server *server;
 	try
 	{
@@ -31,7 +38,6 @@ int main(int argc, char **argv)
 // TODO
 void InitCommandFunctions()
 {
-	// command_funcs["default"] = *InitCommandFunctions;
 	// command_funcs["INVITE"] = INVITE;
 	// command_funcs["JOIN"] = JOIN;
 	// command_funcs["KICK"] = KICK;

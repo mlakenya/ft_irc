@@ -17,6 +17,7 @@
 # include <algorithm>
 # include <sstream>
 # include <fstream>
+# include <signal.h>
 
 /* Defines */
 
@@ -29,7 +30,7 @@
 # define RED            "\033[0;31m"
 # define RESET          "\033[0m"
 
-# define DEBUG 1
+# define DEBUG 0
 
 /* Global */
 
