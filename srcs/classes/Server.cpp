@@ -160,6 +160,17 @@ void Server::MakeResponse(int client_fd)
 				  << ": " << toSend << std::endl;
 }
 
+void Server::PollError(int client_fd)
+{
+	if (client_fd == this->_server_socket)
+		throw new std::runtime_error("ERROR. Server socket fucked up.");
+	else
+	{
+		this->DelClient(client_fd);
+		this->_clients.erase(client_fd);
+	}
+}
+
 /*
  *	۝۝۝۝۝۝۝۝۝۝۝۝۝۝۝۝۝
  *	۝       PRIVATE METHODS      ۝

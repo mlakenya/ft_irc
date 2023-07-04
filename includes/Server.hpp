@@ -32,6 +32,7 @@ public:
 	void CreateConnection(std::vector<pollfd> *new_pfds);
 	void HandleClientRequest(int client_fd);
 	void MakeResponse(int client_fd);
+	void PollError(int client_fd);
 	void SendWelcomeMsg(Client *client);
 
 	int GetServerSocket();

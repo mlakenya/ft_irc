@@ -1,6 +1,7 @@
 #include "../includes/Server.hpp"
 #include "../includes/Commands.hpp"
 
+// Global variables for signal handling and map of commands.
 bool shutdown_signal = false;
 std::map<std::string, void(*)(Server *, Client *, cmdList *)> command_funcs;
 
@@ -31,7 +32,8 @@ int main(int argc, char **argv)
 	delete server;
 }
 
-// TODO Description
+// Init map of command's names and functions.
+// Functions should be declared in Commands.hpp file.
 void InitCommandFunctions()
 {
 	// command_funcs["INVITE"] = INVITE;
