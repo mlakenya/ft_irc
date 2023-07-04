@@ -61,7 +61,10 @@ std::string	Client::GetNickname()
 
 void Client::SetNickname(std::string nickname)
 {
-	this->_nickname = nickname;
+	if (nickname.size() <= 10)
+		this->_nickname = nickname;
+	else
+		this->_nickname = nickname.substr(0, 10);
 }
 
 std::string	Client::GetUsername()

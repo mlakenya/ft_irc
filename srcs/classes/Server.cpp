@@ -161,18 +161,23 @@ void Server::InitializeWelcomeMsg()
 	std::string line;
 
 	this->_welcomeMessages = new std::string[NUM_WELCOME_MSGS];
+	std::string welcome_files[NUM_WELCOME_MSGS] = { "grogu", "shit" };
 
-	std::ifstream infile("srcs/welcomeMessages/grogu");
-	if (infile.fail())
+	for (int i = 0; i < NUM_WELCOME_MSGS; i++)
 	{
-		throw new std::runtime_error("Can't open file \"welcomeMessages/grogu\"");
+		std::ifstream infile(("srcs/welcomeMessages/" + welcome_files[i]).c_str());
+		if (infile.fail())
+		{
+			infile.close();
+			throw new std::runtime_error("Can't open file " + welcome_files[i]);
+		}
+		while (std::getline(infile, line))
+		{
+			this->_welcomeMessages[i].append(line + "\n");
+		}
+		std::cout << ":: " << welcome_files[i] << " : " << std::endl << this->_welcomeMessages[i] << std::endl;
 		infile.close();
 	}
-	while (std::getline(infile, line))
-	{
-		this->_welcomeMessages[0].append(line + "\n");
-	}
-	infile.close();
 }
 
 void Server::AddClient(int client_socket, std::vector<pollfd> *new_pfds)
@@ -202,6 +207,7 @@ void Server::ServerIsFull(int client_socket)
 
 void Server::DelClient(int client_socket)
 {
+	// TODO when we delete client we should send him quit message.
 	close(client_socket);
 	this->_clients.erase(client_socket);
 
@@ -214,12 +220,13 @@ void Server::DelClient(int client_socket)
 
 void Server::SendWelcomeMsg(Client *client)
 {
+	client->_send_buff.append("001 " + client->GetNickname() + " :");
 	client->_send_buff.append("\n \n✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧\n");
 	client->_send_buff.append("✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧\n");
 	client->_send_buff.append("✧✧✧✧✧✧✧✧✧✧✧꧁ WELCOME TO OUR FT_IRC SERVER!!!꧂✧✧✧✧✧✧✧✧✧✧✧\n");
 	client->_send_buff.append("✧✧✧✧✧✧✧✧✧✧✧(´ ･ᴗ･`)✧✧✧✧＼(￣▽￣)／✧✧✧✧(´･ᴗ･ ` )✧✧✧✧✧✧✧✧✧\n");
 	client->_send_buff.append("✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧✧\n");
-	client->_send_buff.append("	                   ⣀⣤⠚⠛⠛⠋⠉⠉⠉⠉⠉⠉⠉⠉⠙⠛⠛⠦⣄⣀\n");
+	client->_send_buff.append("                    ⣀⣤⠚⠛⠛⠋⠉⠉⠉⠉⠉⠉⠉⠉⠙⠛⠛⠦⣄⣀\n");
 	client->_send_buff.append("                 ⣀⠿⠛                      ⠙⢳⡄ \n");
 	client->_send_buff.append("               ⢠⡿⠋                         ⠛⢷⣄\n");
 	client->_send_buff.append("               ⣿⡇   Have fun and be nice     ⠘⣿\n");
@@ -232,10 +239,12 @@ void Server::SendWelcomeMsg(Client *client)
 	client->_send_buff.append("                     ⣟⠋\n");
 	client->_send_buff.append("                     ⠉\n");
 
-	std::stringstream ss;
-	client->_send_buff.append(this->_welcomeMessages[0] + "\r\n");
-	ss << this->_clients.size();
-	client->_send_buff.append(" \nCurrent number of users: " + ss.str() + "\n\n");
+	int chosen_message = rand() % NUM_WELCOME_MSGS;
+	client->_send_buff.append(this->_welcomeMessages[chosen_message] + "\r\n");
+	client->_send_buff.append(RPL_YOURHOST(client->GetNickname(), "ft_irc", "1.0"));
+	client->_send_buff.append(RPL_CREATED(client->GetNickname(), "04-07-2023 10:30:09"));
+	client->_send_buff.append(RPL_MYINFO(client->GetNickname(), "ft_irc", "1.0", "io", "kost", "k"));
+	client->_send_buff.append(RPL_ISUPPORT(client->GetNickname(), "CHANNELLEN=32 NICKLEN=10 TOPICLEN=307"));
 }
 
 /*

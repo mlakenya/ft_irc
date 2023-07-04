@@ -18,13 +18,16 @@
 # include <sstream>
 # include <fstream>
 # include <signal.h>
+# include <stdlib.h>
+# include <time.h>
+# include <stdio.h>
 
 /* Defines */
 
 # define FAILURE		    -1
 # define MAX_CLIENT 	    11
 # define BUFFER_SIZE	    1024
-# define NUM_WELCOME_MSGS   1
+# define NUM_WELCOME_MSGS   2
 
 // Color
 # define RED            "\033[0;31m"

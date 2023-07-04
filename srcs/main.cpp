@@ -4,12 +4,6 @@
 bool shutdown_signal = false;
 std::map<std::string, void(*)(Server *, Client *, cmdList *)> command_funcs;
 
-static void	set_shutdown_signal(int signal)
-{
-	(void)signal;
-	shutdown_signal = true;
-}
-
 int main(int argc, char **argv)
 {	
 	if (argc != 3)
@@ -18,7 +12,9 @@ int main(int argc, char **argv)
 		return 1;
 	}
 	
+	srand((unsigned)time(NULL));
 	signal(SIGINT, set_shutdown_signal);
+
 	Server *server;
 	try
 	{
@@ -35,7 +31,7 @@ int main(int argc, char **argv)
 	delete server;
 }
 
-// TODO
+// TODO Description
 void InitCommandFunctions()
 {
 	// command_funcs["INVITE"] = INVITE;
@@ -56,4 +52,10 @@ void InitCommandFunctions()
 	// command_funcs["TOPIC"] = TOPIC;
 	command_funcs["USER"] = *USER;
 	command_funcs["PASS"] = *PASS;
+}
+
+void	set_shutdown_signal(int signal)
+{
+	(void)signal;
+	shutdown_signal = true;
 }
