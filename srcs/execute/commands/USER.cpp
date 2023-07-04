@@ -10,16 +10,16 @@ void USER(Server *server, Client *client, cmdList *cmd)
 
 	if (cmd->parameters.size() < 3)
 	{
-		client->_send_buff += ERR_NEED_MORE_PARAMS(client->GetNickname(), cmd->command);
+		client->_send_buff.append(ERR_NEED_MORE_PARAMS(client->GetNickname(), cmd->command));
 		return ;
 	}
 
 	username = cmd->parameters[0];
 	realname = cmd->trailing;
 	if (username.empty() || realname.empty())
-		client->_send_buff += ERR_NEED_MORE_PARAMS(client->GetNickname(), cmd->command);
+		client->_send_buff.append(ERR_NEED_MORE_PARAMS(client->GetNickname(), cmd->command));
 	else if (!client->GetUsername().empty())
-		client->_send_buff += ERR_ALREADY_REGISTERED(client->GetNickname());
+		client->_send_buff.append(ERR_ALREADY_REGISTERED(client->GetNickname()));
 	else
 	{
 		client->SetUsername(username);

@@ -12,18 +12,18 @@ void NICK(Server *server, Client *client, cmdList *cmd)
 
 	if (cmd->parameters.size() < 1 || cmd->parameters[0].empty())
 	{
-		client->_send_buff += ERR_NO_NICKNAME_GIVEN(client->GetNickname());
+		client->_send_buff.append(ERR_NO_NICKNAME_GIVEN(client->GetNickname()));
 		std::string nick = "";
-		client->_send_buff += RPL_NICK(client->GetNickname(), client->GetUsername(), nick);
+		client->_send_buff.append(RPL_NICK(client->GetNickname(), client->GetUsername(), nick));
 		return ;
 	}
 
 	nickname = cmd->parameters[0];
 	if (HasWrongChars(nickname))
-		client->_send_buff += ERR_ERRONEUS_NICKNAME(client->GetNickname(), nickname);
+		client->_send_buff.append(ERR_ERRONEUS_NICKNAME(client->GetNickname(), nickname));
 
 	else if (isUsed(server, nickname) == true)
-		client->_send_buff += ERR_NICKNAME_IN_USE(client->GetNickname(), nickname);
+		client->_send_buff.append(ERR_NICKNAME_IN_USE(client->GetNickname(), nickname));
 
 	else
 	{
@@ -42,12 +42,18 @@ void NICK(Server *server, Client *client, cmdList *cmd)
 		}
 	}
 
-	client->_send_buff += RPL_NICK(oldnick, client->GetUsername(), nickname);
+	client->_send_buff.append(RPL_NICK(oldnick, client->GetUsername(), nickname));
 }
 
 bool	HasWrongChars(std::string nickname)
 {
-	if (nickname.find(" ,*?!@.") != std::string::npos)
+	if (nickname.find(' ') != std::string::npos
+		|| nickname.find(',') != std::string::npos
+		|| nickname.find('*') != std::string::npos
+		|| nickname.find('?') != std::string::npos
+		|| nickname.find('!') != std::string::npos
+		|| nickname.find('@') != std::string::npos
+		|| nickname.find('.') != std::string::npos)
 		return true;
 	if (nickname[0] == '$' || nickname[0] == ':' || nickname[0] == '#')
 		return true;
