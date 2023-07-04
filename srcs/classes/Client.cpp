@@ -11,6 +11,18 @@ Client::~Client()
 	this->_cmd_buff = NULL;
 }
 
+void Client::ClearCmdBuff()
+{
+	cmdList *tmp;
+
+	while (this->_cmd_buff)
+	{
+		tmp = this->_cmd_buff->next;
+		delete this->_cmd_buff;
+		this->_cmd_buff = tmp;
+	}
+}
+
 /*
 *	۝۝۝۝۝۝۝۝۝۝۝۝۝۝۝۝۝
 *	۝         ACCESSORS          ۝

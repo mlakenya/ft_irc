@@ -9,7 +9,16 @@ Server::Server(char *port, char *password)
 
 Server::~Server()
 {
-	// TODO free map
+	delete[] this->_welcomeMessages;
+	
+	std::map<int, Client *>::iterator it = this->_clients.begin();
+	while (it != this->_clients.end())
+	{
+		this->DelClient(it->first);
+		it++;
+	}
+	this->_clients.clear();
+
 	std::cout << "Bye bye... Have a good day!" << std::endl;
 }
 
@@ -114,6 +123,7 @@ void Server::HandleClientRequest(int client_fd)
 	else
 	{
 		this->DelClient(client_fd);
+		this->_clients.erase(client_fd);
 		std::stringstream ss;
 		if ((int)read_count == FAILURE)
 			ss << "ERROR. Cann't read from client №" << client_fd << ". Client was disconnected.";
@@ -204,17 +214,25 @@ void Server::ServerIsFull(int client_socket)
 	throw std::runtime_error(err_msg);
 }
 
+// TODO when we delete client we should send him quit message.
 void Server::DelClient(int client_socket)
 {
-	// TODO when we delete client we should send him quit message.
-	close(client_socket);
-	this->_clients.erase(client_socket);
+	Client *client;
 
+	close(client_socket);
+	
+	// Delete client socket form pfds vector.
 	std::vector<pollfd>::iterator it = this->_pfds.begin();
 	while (it != this->_pfds.end() && it->fd != client_socket)
 		it++;
 	if (it != this->_pfds.end())
 		this->_pfds.erase(it);
+
+	// Get client from map by his socket.
+	client = this->_clients.find(client_socket)->second;
+	client->ClearCmdBuff();
+
+	delete client;
 }
 
 void Server::SendWelcomeMsg(Client *client)
@@ -241,7 +259,7 @@ void Server::SendWelcomeMsg(Client *client)
 	int chosen_message = rand() % NUM_WELCOME_MSGS;
 	client->_send_buff.append(this->_welcomeMessages[chosen_message] + "\r\n");
 	client->_send_buff.append(RPL_YOURHOST(client->GetNickname(), "ft_irc", "1.0"));
-	// client->_send_buff.append(RPL_CREATED(client->GetNickname(), "04-07-2023 10:30:09"));
+	// client->_send_buff.append(RPL_CREATED(client->GetNickname(), "04-07-2023 10:30:09")); TODO
 	client->_send_buff.append(RPL_MYINFO(client->GetNickname(), "ft_irc", "1.0", "io", "kost", "k"));
 	client->_send_buff.append(RPL_ISUPPORT(client->GetNickname(), "CHANNELLEN=32 NICKLEN=10 TOPICLEN=307"));
 }

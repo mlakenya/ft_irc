@@ -30,6 +30,8 @@ public:
 	Client(int fd);
 	~Client();
 
+	void		ClearCmdBuff();
+
 	/*    ===== Accessors =====     */
 	UserStatus	GetStatus();
 	void		SetStatus(UserStatus);

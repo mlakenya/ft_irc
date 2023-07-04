@@ -37,13 +37,24 @@ void Execute(Server *server, Client *client)
 		if (DEBUG)
 			std::cout << "Execute command: " << cmd->command << std::endl;
 
-		// Trying to find a command and execute it.
+		// TODO delete after commands realisation.
+		if (cmd->command == "PING")
+		{
+			client->_send_buff.append(":" + client->GetNickname() + "!" + client->GetUsername() + "@localhost PONG :" + cmd->parameters[0] + "\r\n");
+		}
+		else if (cmd->command == "MODE")
+		{
+			client->_send_buff.append(":" + client->GetNickname() + " MODE " + client->GetNickname() + " :+i" + "\r\n");
+		}
+		else
+		{
+			// Trying to find a command and execute it.
 			if (command_funcs.find(cmd->command) != command_funcs.end()
 				&& (cmd->command != "PASS" || client->GetStatus() == PASSWORD))
 				command_funcs[cmd->command](server, client, cmd);
-		else
-			client->_send_buff.append(ERR_UNKNOWN_COMMAND(client->GetNickname(), cmd->command));
-
+			else if (cmd->command != "CAP")
+				client->_send_buff.append(ERR_UNKNOWN_COMMAND(client->GetNickname(), cmd->command));
+		}
 		cmdList *next = cmd->next;
 		client->DeleteCommand(cmd);
 
