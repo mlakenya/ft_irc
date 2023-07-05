@@ -28,7 +28,7 @@ public:
 	std::string&					GetName();
 	std::string&					GetTopic() ;
 	std::string&					GetMode() ;
-	std::string&					GetChannelPassword() ;
+	std::string&					GetPassword() ;
 	int&							GetCapacityLimit() ;
 	std::vector<std::string>&		GetOperators() ;
 	std::vector<std::string>&		GetKickedUsers() ;

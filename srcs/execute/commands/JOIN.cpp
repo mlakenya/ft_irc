@@ -20,7 +20,7 @@ void JOIN(Server *server, Client *client, cmdList *cmd)
 
 		// Trying to find this channel on server.
 		// If there is no one, create new.
-		// Otherwise, check if the channel has a password and do they match.s
+		// Otherwise, check if the channel has a password and do they match.
 		std::map<std::string, Channel*>::iterator it = server->GetChannels()->find(channel_name);
 		if (it == server->GetChannels()->end())
 			channel = server->CreateChannel(channel_name);
@@ -29,8 +29,8 @@ void JOIN(Server *server, Client *client, cmdList *cmd)
 		
 		if (channel->GetMode().find('k') != std::string::npos)
 		{
-			std::string key = GetPassword(cmd->command);
-			if (key != GetPassword(cmd->parameters[1]))
+			std::string key = GetPassword(cmd->parameters[1]);
+			if (key != channel->GetPassword())
 			{
 				client->_send_buff.append(ERR_BAD_CHANNEL_KEY(nickname, channel_name));
 				continue ;
@@ -41,12 +41,12 @@ void JOIN(Server *server, Client *client, cmdList *cmd)
 		if (channel->GetMode().find('l') != std::string::npos
 			 && (int)channel->GetClientList().size() >= channel->GetCapacityLimit())
 		{
-			client->_send_buff.append(ERR_BAD_CHANNEL_KEY(nickname, channel_name));
+			client->_send_buff.append(ERR_CHANNEL_IS_FULL(nickname, channel_name));
 			continue ;
 		}
 
 		// If this client is banned.
-		if (channel->GetMode().find("b") != std::string::npos && channel->IsBanned(nickname) == true)
+		if (channel->GetMode().find('b') != std::string::npos && channel->IsBanned(nickname))
 		{
 			client->_send_buff.append(ERR_BANNED_FROM_CHAN(nickname, channel_name));
 			continue ;
@@ -113,7 +113,7 @@ void SendChanInfos(Channel *channel, Client *client)
 	while (member != channel->GetClientList().end())
 	{
 		member->second->_send_buff.append(RPL_JOIN(nick, username, channel->GetName()));
-		if (!channel->GetTopic().empty())
+		if (!channel->GetTopic().empty()) // TODO Check original behaviour
 			member->second->_send_buff.append(RPL_TOPIC(nick, channel->GetName(), channel->GetTopic()));
 
 		client->_send_buff.append(RPL_NAMREPLY(username, channel_symbol, channel->GetName(), channel->GetListOfMembers()));

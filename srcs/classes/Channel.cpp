@@ -6,7 +6,7 @@
  *	۝۝۝۝۝۝۝۝۝۝۝۝۝۝۝۝۝
  */
 
-Channel::Channel(std::string const &channelName): _name(channelName), _capacity_limit(-1)
+Channel::Channel(std::string const &channelName): _name(channelName), _capacity_limit(-1) //TODO
 {
 	_banned_users.clear();
 	_clientList.clear();
@@ -24,7 +24,7 @@ Channel::~Channel() {}
 std::string&						Channel::GetName() 			{ return (_name); }
 std::string&						Channel::GetTopic() 		{ return (_topic); }
 std::string&						Channel::GetMode()			{ return (_mode); }
-std::string&						Channel::GetChannelPassword()	{ return (_channel_password); }
+std::string&						Channel::GetPassword()	{ return (_channel_password); }
 int&								Channel::GetCapacityLimit()	{ return (_capacity_limit); }
 std::map <std::string, Client*>&	Channel::GetClientList()	{ return (_clientList); }
 std::vector<std::string>&			Channel::GetBannedUsers()	{ return (_banned_users); }
