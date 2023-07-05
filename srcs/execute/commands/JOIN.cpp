@@ -116,8 +116,8 @@ void SendChanInfos(Channel *channel, Client *client)
 		if (!channel->GetTopic().empty()) // TODO Check original behaviour
 			member->second->_send_buff.append(RPL_TOPIC(nick, channel->GetName(), channel->GetTopic()));
 
-		client->_send_buff.append(RPL_NAMREPLY(username, channel_symbol, channel->GetName(), channel->GetListOfMembers()));
-		client->_send_buff.append(RPL_ENDOFNAMES(username, channel->GetName()));
+		member->second->_send_buff.append(RPL_NAMREPLY(username, channel_symbol, channel->GetName(), channel->GetListOfMembers()));
+		member->second->_send_buff.append(RPL_ENDOFNAMES(username, channel->GetName()));
 		member++;
 	}
 }

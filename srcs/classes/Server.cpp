@@ -3,8 +3,8 @@
 Server::Server(char *port, char *password)
 	: _server_socket(0), _port(port), _passwd(password)
 {
-	InitializeWelcomeMsg();
 	std::cout << "Launching server..." << std::endl;
+	InitializeWelcomeMsg();
 }
 
 Server::~Server()
@@ -52,7 +52,7 @@ void Server::Prepare()
 	if (bind(this->_server_socket, _servinfo->ai_addr, _servinfo->ai_addrlen) == FAILURE)
 		throw std::runtime_error("ERROR. Bind failed");
 
-	if (listen(this->_server_socket, 11) == FAILURE)
+	if (listen(this->_server_socket, 3) == FAILURE)
 		throw std::runtime_error("ERROR. wtf lisent. Why are you not working?");
 
 	std::cout << "Server is listening on port " << this->_port << std::endl;
@@ -65,7 +65,7 @@ void Server::CreateConnection(std::vector<pollfd> *new_pfds)
 	int client_socket;
 
 	client_socket = accept(this->_server_socket, NULL, NULL);
-	if (client_socket == -1)
+	if (client_socket == FAILURE)
 		throw std::runtime_error("ERROR. Accept failed");
 
 	if (this->_pfds.size() - 1 < MAX_CLIENT)
@@ -87,7 +87,7 @@ void Server::HandleClientRequest(int client_fd)
 	{
 		std::cout << "Message from client №" << client_fd << ": " << message << std::endl;
 		client = this->_clients.find(client_fd)->second;
-		client->_recv_buff += message;
+		client->_recv_buff += message;  // TODO dont give unknown command form nc
 
 		if (client->_recv_buff.find("\r\n") != std::string::npos)
 		{
