@@ -24,7 +24,10 @@ void JOIN(Server *server, Client *client, cmdList *cmd)
 		std::map<std::string, Channel*>::iterator it = server->GetChannels()->find(channel_name);
 		if (it == server->GetChannels()->end())
 			channel = server->CreateChannel(channel_name);
-		else if (it->second->GetMode().find('k') != std::string::npos)
+		else 
+			channel = it->second;
+		
+		if (channel->GetMode().find('k') != std::string::npos)
 		{
 			std::string key = GetPassword(cmd->command);
 			if (key != GetPassword(cmd->parameters[1]))
@@ -32,7 +35,6 @@ void JOIN(Server *server, Client *client, cmdList *cmd)
 				client->_send_buff.append(ERR_BAD_CHANNEL_KEY(nickname, channel_name));
 				continue ;
 			}
-			channel = it->second;
 		}
 		
 		// If the channel has a limit, and it's full.

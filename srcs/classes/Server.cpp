@@ -269,10 +269,10 @@ void Server::SendWelcomeMsg(Client *client)
 
 	int chosen_message = rand() % NUM_WELCOME_MSGS;
 	client->_send_buff.append(this->_welcomeMessages[chosen_message] + "\r\n");
-	client->_send_buff.append(RPL_YOURHOST(client->GetNickname(), "ft_irc", "1.0"));
+	client->_send_buff.append(RPL_YOUR_HOST(client->GetNickname(), "ft_irc", "1.0"));
 	// client->_send_buff.append(RPL_CREATED(client->GetNickname(), "04-07-2023 10:30:09")); TODO
-	client->_send_buff.append(RPL_MYINFO(client->GetNickname(), "ft_irc", "1.0", "io", "kost", "k"));
-	client->_send_buff.append(RPL_ISUPPORT(client->GetNickname(), "CHANNELLEN=32 NICKLEN=10 TOPICLEN=307"));
+	client->_send_buff.append(RPL_MY_INFO(client->GetNickname(), "ft_irc", "1.0", "io", "kost", "k"));
+	client->_send_buff.append(RPL_I_SUPPORT(client->GetNickname(), "CHANNELLEN=32 NICKLEN=10 TOPICLEN=307"));
 }
 
 Channel	*Server::CreateChannel(std::string channel_name)
