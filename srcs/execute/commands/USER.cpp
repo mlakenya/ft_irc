@@ -3,7 +3,6 @@
 
 void USER(Server *server, Client *client, cmdList *cmd)
 {
-	std::cout << "USER" << std::endl;
 	std::string username;
 	std::string realname;
 	(void)server;

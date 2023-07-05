@@ -6,9 +6,9 @@ bool isUsed(Server *server, std::string nickname);
 
 void NICK(Server *server, Client *client, cmdList *cmd)
 {
-	std::cout << "NICK" << std::endl;
 	std::string nickname;
 	std::string oldnick;
+	int prev_status = client->GetStatus();
 
 	if (cmd->parameters.size() < 1 || cmd->parameters[0].empty())
 	{
@@ -23,17 +23,14 @@ void NICK(Server *server, Client *client, cmdList *cmd)
 		client->_send_buff.append(ERR_ERRONEUS_NICKNAME(client->GetNickname(), nickname));
 
 	else if (isUsed(server, nickname) == true)
-		client->_send_buff.append(ERR_NICKNAME_IN_USE(client->GetNickname(), nickname));
+		client->_send_buff.append(ERR_NICKNAME_IN_USE(nickname, nickname));
 
 	else
 	{
 		if (client->GetNickname().empty())
 		{
 			client->SetNickname(nickname);
-			oldnick = nickname;
 			client->SetStatus(ONLINE);
-			if (client->GetStatus() == ONLINE)
-				server->SendWelcomeMsg(client);
 		}
 		else
 		{
@@ -42,7 +39,12 @@ void NICK(Server *server, Client *client, cmdList *cmd)
 		}
 	}
 
+	if (oldnick.empty())
+		oldnick = nickname;
+	
 	client->_send_buff.append(RPL_NICK(oldnick, client->GetUsername(), nickname));
+	if (prev_status == AUTHENTICATION && client->GetStatus() == ONLINE)
+		server->SendWelcomeMsg(client);
 }
 
 bool	HasWrongChars(std::string nickname)

@@ -45,7 +45,7 @@ void ServerManager(Server *server)
 			}
 			else if (socket_it->revents & POLLOUT)
 			 	server->MakeResponse(socket_it->fd);
-			else if (socket_it->revents & POLLERR) // TODO
+			else if (socket_it->revents & POLLERR)
 				server->PollError(socket_it->fd);
 
 			socket_it++;

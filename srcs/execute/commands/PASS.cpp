@@ -3,7 +3,6 @@
 
 void PASS(Server *server, Client *client, cmdList *cmd)
 {
-	std::cout << "Pass" << std::endl;
 	if (cmd->command.empty() || cmd->parameters.size() == 0)
 	{
 		client->_send_buff.append(ERR_NEED_MORE_PARAMS(client->GetNickname(), cmd->command));

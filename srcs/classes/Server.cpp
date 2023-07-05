@@ -85,7 +85,7 @@ void Server::HandleClientRequest(int client_fd)
 
 	if (read_count > 0)
 	{
-		std::cout << "Message from client №" << client_fd << ": " << message;
+		std::cout << "Message from client №" << client_fd << ": " << message << std::endl;
 		client = this->_clients.find(client_fd)->second;
 		client->_recv_buff += message;
 
@@ -213,7 +213,7 @@ void Server::AddClient(int client_socket, std::vector<pollfd> *new_pfds)
 	this->_clients.insert(std::pair<int, Client *>(client_socket, new_client));
 
 	std::cout << std::endl
-			  << "New client connected, his number is №" << client_socket << std::endl;
+			  << "New client connected, his number is №" << client_socket << std::endl << std::endl;
 }
 
 void Server::ServerIsFull(int client_socket)

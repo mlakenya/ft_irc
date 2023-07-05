@@ -66,21 +66,16 @@ std::string GetChannelName(std::string &channel_names)
 	std::string name;
 	size_t comma_pos;
 
-	std::cout << std::endl << "Channel_names:" << channel_names << std::endl << std::endl;
 	comma_pos = channel_names.find(',');
 	if (comma_pos != std::string::npos)
 	{
 		name = channel_names.substr(1, comma_pos - 1);
-		std::cout << std::endl << "1Channel_name:" << name << std::endl << std::endl;
 		channel_names.erase(0, comma_pos + 1);
-		std::cout << std::endl << "1After Erase:" << channel_names << std::endl << std::endl;
 	}
 	else
 	{
 		name = channel_names.substr(1, channel_names.size() - 1);
-		std::cout << std::endl << "2Channel_name:" << name << std::endl << std::endl;
 		channel_names.clear();
-		std::cout << std::endl << "2After Erase:" << channel_names << std::endl << std::endl;
 	}
 
 	return name;
