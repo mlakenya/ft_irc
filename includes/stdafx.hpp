@@ -37,6 +37,6 @@
 
 /* Global */
 
-extern bool								shutdown_signal;
+extern bool	shutdown_signal;
 
 #endif

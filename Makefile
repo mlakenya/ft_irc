@@ -4,11 +4,13 @@ SRCS		= 	main.cpp				 			\
 				server_managing/ServerManager.cpp 	\
 				classes/Client.cpp					\
 				classes/Server.cpp					\
+				classes/Channel.cpp					\
 				parsing/Parser.cpp					\
 				execute/Executer.cpp				\
 				execute/commands/PASS.cpp			\
 				execute/commands/NICK.cpp			\
 				execute/commands/USER.cpp			\
+				execute/commands/JOIN.cpp			\
 
 
 
@@ -36,7 +38,7 @@ RM 			= rm -f
 
 all:	${NAME}
 
-${NAME} : ${OBJS}  #${INCLUDES} 
+${NAME} : ${OBJS}
 	${CXX} $^ -o $@
 
 ${OBJS} : ${DIR_OBJS}%.o: ${DIR_SRCS}%.cpp

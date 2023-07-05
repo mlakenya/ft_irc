@@ -1,7 +1,7 @@
 #include "../../../includes/CmdList.hpp"
 #include "../../../includes/Server.hpp"
 
-bool	HasWrongChars(std::string nickname);
+bool HasWrongChars(std::string nickname);
 bool isUsed(Server *server, std::string nickname);
 
 void NICK(Server *server, Client *client, cmdList *cmd)

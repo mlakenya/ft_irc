@@ -37,7 +37,7 @@ int main(int argc, char **argv)
 void InitCommandFunctions()
 {
 	// command_funcs["INVITE"] = INVITE;
-	// command_funcs["JOIN"] = JOIN;
+	command_funcs["JOIN"] = *JOIN;
 	// command_funcs["KICK"] = KICK;
 	// command_funcs["KILL"] = KILL;
 	// command_funcs["LIST"] = LIST;

@@ -275,23 +275,20 @@ void Server::SendWelcomeMsg(Client *client)
 	client->_send_buff.append(RPL_ISUPPORT(client->GetNickname(), "CHANNELLEN=32 NICKLEN=10 TOPICLEN=307"));
 }
 
+Channel	*Server::CreateChannel(std::string channel_name)
+{
+	Channel	*channel = new Channel(channel_name);
+	this->_channels.insert(std::pair<std::string, Channel*>(channel_name, channel));
+	return channel;
+}
+
 /*
  *	۝۝۝۝۝۝۝۝۝۝۝۝۝۝۝۝۝
  *	۝         ACCESSORS          ۝
  *	۝۝۝۝۝۝۝۝۝۝۝۝۝۝۝۝۝
  */
 
-int Server::GetServerSocket()
-{
-	return _server_socket;
-}
-
-std::string Server::GetPassword()
-{
-	return this->_passwd;
-}
-
-std::map<int, Client *> *Server::GetClients()
-{
-	return &this->_clients;
-}
+int Server::GetServerSocket()							{ return _server_socket; }
+std::string Server::GetPassword()						{ return this->_passwd; }
+std::map<int, Client *> *Server::GetClients()			{ return &this->_clients; }
+std::map<std::string, Channel*> *Server::GetChannels()	{ return &this->_channels; }
