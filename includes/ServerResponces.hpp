@@ -37,4 +37,10 @@
 # define RPL_NAMREPLY(nickname, symbol, channel, list_of_nicks) (":localhost 353 " + username + " " + symbol + " #" + channel + " :" + list_of_nicks + "\r\n")
 # define RPL_ENDOFNAMES(nickname, channel) (":localhost 366 " + username + " #" + channel + " :End of /NAMES list.\r\n")
 
+// KICK
+# define ERR_NO_SUCH_CHANNEL(nickname, channel) ("403 " + nickname + " #" + channel + " :No such channel \r\n")
+# define ERR_CHAN_OP_RIVS_NEEDED(nickname, channel) ("482 " + nickname + " #" + channel + " :You're not channel operator \r\n")
+# define ERR_NO_TON_CHANNEL(nickname, channel) ("442 " + nickname + " #" + channel + " :You're not on that channel \r\n")
+# define ERR_USER_NO_TIN_CHANNEL(nickname, channel) ("441 " + nickname + " #" + channel + " :They aren't on that channel \r\n")
+
 #endif

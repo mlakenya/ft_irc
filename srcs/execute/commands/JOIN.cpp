@@ -7,16 +7,18 @@ void			SendChanInfos(Channel *channel, Client *client);
 
 void JOIN(Server *server, Client *client, cmdList *cmd)
 {
-	std::string channel_name;
-	Channel		*channel;
 	std::string nickname = client->GetNickname();
 
 	if (cmd->command.empty() || cmd->parameters.size() == 0)
+	{
 		client->_send_buff.append(ERR_NEED_MORE_PARAMS(nickname, cmd->command));
+		return;
+	}
 	
 	while (!cmd->parameters[0].empty())
 	{
-		channel_name = GetChannelName(cmd->parameters[0]);
+		Channel		*channel;
+		std::string channel_name = GetChannelName(cmd->parameters[0]);
 
 		// Trying to find this channel on server.
 		// If there is no one, create new.

@@ -9,6 +9,7 @@
 # include	"Channel.hpp"
 
 class Channel;
+
 class Server
 {
 private:

@@ -11,6 +11,7 @@ SRCS		= 	main.cpp				 			\
 				execute/commands/NICK.cpp			\
 				execute/commands/USER.cpp			\
 				execute/commands/JOIN.cpp			\
+				execute/commands/KICK.cpp			\
 
 
 
