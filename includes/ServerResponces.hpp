@@ -62,4 +62,9 @@
 # define ERR_NO_RECIPI_ENT(nickname, command) ("411" + nickname + " :No recipient given " + command + " \r\n")
 # define ERR_NO_TEXT_TO_SEND(nickname) ("412" + nickname + " :No text to send \r\n")
 # define RPL_PRIVMSG(nickname, user_name, target, message) (":" + nickname + "!" + user_name + "@localhost PRIVMSG " + target + " :" + message + "\r\n")
+
+// WHO
+# define RPL_WHOREPLY(client, channel, nickname, username) (":localhost 352 " + client + " " + channel + nickname + " localhost localhost " + nickname + " H :0 " + username + "\r\n")
+# define RPL_ENDOFWHO(nickname) (":localhost 315 " + nickname + " :End of /WHO list\r\n")
+
 #endif

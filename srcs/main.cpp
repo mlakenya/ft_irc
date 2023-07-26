@@ -37,11 +37,12 @@ int main(int argc, char **argv)
 void InitCommandFunctions()
 {
 	// command_funcs["OPER"] = OPER;
+	// command_funcs["QUIT"] = *QUIT;
 	command_funcs["PRIVMSG"] = *PRIVMSG;
 	command_funcs["PING"] = *PING;
 	command_funcs["INVITE"] = *INVITE;
 	command_funcs["TOPIC"] = *TOPIC;
-	command_funcs["MODE"] = *MODE; //i t k o
+	command_funcs["MODE"] = *MODE;
 	command_funcs["JOIN"] = *JOIN;
 	command_funcs["KICK"] = *KICK;
 	command_funcs["NICK"] = *NICK;

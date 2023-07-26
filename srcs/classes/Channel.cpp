@@ -43,11 +43,13 @@ std::string Channel::GetListOfMembers()
 	{
 		nick = it->second->GetNickname();
 
-		if (this->IsOperator(nick))
-			members_list += "@";
-		members_list += nick;
-		members_list += " ";
-
+		if (!it->second->GetModeI() || this->IsOperator(nick))
+		{
+			if (this->IsOperator(nick))
+				members_list += "@";
+			members_list += nick;
+			members_list += " ";
+		}
 		it++;
 	}
 
