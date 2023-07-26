@@ -33,8 +33,9 @@
 # define ERR_BAD_CHANNEL_KEY(nickname, channel) ("475 " + nickname + " #" + channel + " :Cannot join channel (+k)\r\n")
 # define ERR_CHANNEL_IS_FULL(nickname, channel) ("471 " + nickname + " #" + channel + " :Cannot join channel (+l)\r\n")
 # define ERR_BANNED_FROM_CHAN(nickname, channel) ("474 " + nickname + " #" + channel + " :Cannot join channel (+b)\r\n")
+# define ERR_INVITE_ONLY_CHAN(channel) (":localhost 473 " + channel + " :Cannot join channel (+i)\r\n")
 # define RPL_JOIN(nickname, username, channel) (":" + nickname + "!" + username + "@localhost JOIN :#" +  channel + "\r\n")
-# define RPL_TOPIC(nickname, channel, topic) (":localhost 332 " + nickname + " #" + channel + " " + topic + " \r\n")
+# define RPL_TOPIC(nickname, channel, topic) (":localhost 332 " + nickname + " #" + channel + " :" + topic + " \r\n")
 # define RPL_NAMREPLY(nickname, symbol, channel, list_of_nicks) (":localhost 353 " + username + " " + symbol + " #" + channel + " :" + list_of_nicks + "\r\n")
 # define RPL_ENDOFNAMES(nickname, channel) (":localhost 366 " + username + " #" + channel + " :End of /NAMES list.\r\n")
 

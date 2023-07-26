@@ -17,13 +17,10 @@ SRCS		= 	main.cpp				 			\
 				execute/commands/TOPIC.cpp			\
 				execute/commands/INVITE.cpp			\
 				execute/commands/PRIVMSG.cpp		\
-<<<<<<< HEAD
 				execute/commands/WHO.cpp			\
 				execute/commands/WHOIS.cpp			\
 				execute/commands/PART.cpp			\
-
-
->>>>>>> a33e60f (corect command)
+				execute/commands/QUIT.cpp			\
 
 
 

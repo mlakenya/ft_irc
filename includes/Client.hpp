@@ -47,6 +47,7 @@ public:
 	cmdList		*GetCmdBuff();
 	void 		SetCmdBuff(cmdList *cmd_buff);
 	void		DeleteCommand(cmdList *cmd);
+	int			GetSocket();
 };
 
 #endif

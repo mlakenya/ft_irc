@@ -121,6 +121,11 @@ void Client::SetCmdBuff(cmdList *cmd_buff)
 	this->_cmd_buff = cmd_buff;
 }
 
+int	Client::GetSocket()
+{
+	return this->_fd;
+}
+
 void		Client::DeleteCommand(cmdList *cmd)
 {
 	if (this->_cmd_buff == NULL || cmd == NULL)

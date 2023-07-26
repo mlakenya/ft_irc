@@ -6,9 +6,8 @@
  *	۝۝۝۝۝۝۝۝۝۝۝۝۝۝۝۝۝
  */
 
-Channel::Channel(std::string const &channelName): _name(channelName), _capacity_limit(-1) //TODO
+Channel::Channel(std::string const &channelName): _name(channelName), _capacity_limit(-1)
 {
-	_banned_users.clear();
 	_clientList.clear();
 	_topic.clear();
 }
@@ -27,9 +26,6 @@ std::string&						Channel::GetMode()			{ return (_mode); }
 std::string&						Channel::GetPassword()	{ return (_channel_password); }
 int&								Channel::GetCapacityLimit()	{ return (_capacity_limit); }
 std::map <std::string, Client*>&	Channel::GetClientList()	{ return (_clientList); }
-std::vector<std::string>&			Channel::GetBannedUsers()	{ return (_banned_users); }
-std::vector<std::string>&			Channel::GetKickedUsers()	{ return (_kicked_users); }
-std::vector<std::string>&			Channel::GetVoicedUsers()	{ return (_voiced_users); }
 std::vector<std::string>&			Channel::GetOperators() 	{ return (_operators); }
 
 std::string Channel::GetListOfMembers()
@@ -122,137 +118,41 @@ void	Channel::AddClient(Client *client)
 	_clientList.insert(std::pair<std::string, Client*>(client->GetNickname(), client));
 }
 
-void	Channel::AddToKicked(std::string &kicked_name)
-{
-	std::vector<std::string>::iterator it;
-	for (it = _kicked_users.begin(); it != _kicked_users.end(); it++)
-	{
-		if (*it == kicked_name)
-		{
-			std::cout << kicked_name << " is already kicked from the channel " << GetName() << std::endl;
-			return ;
-		}
-	}
-	_kicked_users.push_back(kicked_name);
-	std::cout << RED << kicked_name << " is now kicked from the channel " << GetName() << RESET << std::endl;
-}
-
-void	Channel::AddToBanned(std::string &banned_name)
-{
-	std::vector<std::string>::iterator it;
-	for (it = _banned_users.begin(); it != _banned_users.end(); it++)
-	{
-		if (*it == banned_name)
-		{
-			std::cout << banned_name << " is already banned from the channel " << GetName() << std::endl;
-			return ;
-		}
-	}
-	_banned_users.push_back(banned_name);
-	std::cout << RED << banned_name << " is now banned from the channel " << GetName() << RESET << std::endl;
-}
-
-void	Channel::RemoveFromBanned(std::string &banned_name)
-{
-	std::vector<std::string>::iterator user;
-	for (user = _banned_users.begin(); user != _banned_users.end(); user++)
-	{
-		if (*user == banned_name)
-		{
-			_banned_users.erase(user);
-			std::cout << banned_name << " is not banned anymore from the channel " << GetName() << std::endl;
-			return ;
-		}
-	}
-	std::cout << "No need! " << banned_name << " has never been banned from the channel " << GetName() << std::endl;
-}
-
-bool	Channel::IsBanned(std::string &banned_name)
-{
-	std::vector<std::string>::iterator user;
-	if (_banned_users.empty() == true) // work
-		return (false);
-	for (user = _banned_users.begin(); user != _banned_users.end(); user++)
-	{
-		if (*user == banned_name)
-			return (true);
-	}
-	return (false);	
-}
-
-void	Channel::AddToVoiced(std::string &voiced_name)
-{
-	std::vector<std::string>::iterator it;
-	for (it = _voiced_users.begin(); it != _voiced_users.end(); it++)
-	{
-		if (*it == voiced_name)
-		{
-			std::cout << voiced_name << " is already voiced from the channel " << GetName() << std::endl;
-			return ;
-		}
-	}
-	_voiced_users.push_back(voiced_name);
-	std::cout << RED << voiced_name << " is now voiced from the channel " << GetName() << RESET << std::endl;
-}
-
-void	Channel::RemoveFromVoiced(std::string &voiced_name)
-{
-	std::vector<std::string>::iterator user;
-	for (user = _voiced_users.begin(); user != _voiced_users.end(); user++)
-	{
-		if (*user == voiced_name)
-		{
-			_voiced_users.erase(user);
-			std::cout << voiced_name << " is not voiced anymore from the channel " << GetName() << std::endl;
-			return ;
-		}
-	}
-	std::cout << "No need! " << voiced_name << " has never been voiced from the channel " << GetName() << std::endl;
-}
-
-bool	Channel::IsVoiced(std::string &voiced_name)
-{
-	std::vector<std::string>::iterator user;
-	if (_voiced_users.empty() == true) // work
-		return (false);
-	for (user = _voiced_users.begin(); user != _voiced_users.end(); user++)
-	{
-		if (*user == voiced_name)
-			return (true);
-	}
-	return (false);	
-}
-
 /*
 *				################################
 *				###	  OPERATORS FUNCTIONS    ###
 *				################################
 */
 
-void	Channel::AddFirstOperator(std::string operatorName)
+void	Channel::AddFirstOperator(std::string operator_name)
 {
 	if (_operators.empty())
-		_operators.push_back(operatorName);
+		_operators.push_back(operator_name);
 }
 
-void	Channel::RemoveOperator(std::string operatorName)
+void	Channel::AddOperator(std::string operator_name)
+{
+	_operators.push_back(operator_name);
+}
+
+void	Channel::RemoveOperator(std::string operator_name)
 {
 	std::vector<std::string>::iterator it;
 	for (it = _operators.begin(); it != _operators.end(); it++)
 	{
-		if (*it == operatorName)
+		if (*it == operator_name)
 			_operators.erase(it);
 	}
 }
 
-bool 	Channel::IsOperator(std::string &operatorName)
+bool 	Channel::IsOperator(std::string &operator_name)
 {
 	std::vector<std::string>::iterator user;
 	if (_operators.empty())
 		return (false);
 	for (user = _operators.begin(); user != _operators.end(); user++)
 	{
-		if (*user == operatorName)
+		if (*user == operator_name)
 			return (true);
 	}
 	return (false);

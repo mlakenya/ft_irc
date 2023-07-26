@@ -117,7 +117,15 @@ void Server::HandleClientRequest(int client_fd)
 				}
 			}
 
-			Execute(this, client);
+			try
+			{
+				Execute(this, client);
+			}
+			catch(std::runtime_error ex)
+			{
+				std::cout << "Here" << std::endl;
+				return ;
+			} 
 		}
 	}
 	else
@@ -225,7 +233,6 @@ void Server::ServerIsFull(int client_socket)
 	throw std::runtime_error(err_msg);
 }
 
-// TODO when we delete client we should send him quit message.
 void Server::DelClient(int client_socket)
 {
 	Client *client;
@@ -242,7 +249,6 @@ void Server::DelClient(int client_socket)
 	// Get client from map by his socket.
 	client = this->_clients.find(client_socket)->second;
 	client->ClearCmdBuff();
-
 	delete client;
 }
 
@@ -270,7 +276,6 @@ void Server::SendWelcomeMsg(Client *client)
 	int chosen_message = rand() % NUM_WELCOME_MSGS;
 	client->_send_buff.append(this->_welcomeMessages[chosen_message] + "\r\n");
 	client->_send_buff.append(RPL_YOUR_HOST(client->GetNickname(), "ft_irc", "1.0"));
-	// TODO
 	client->_send_buff.append(RPL_MY_INFO(client->GetNickname(), "ft_irc", "1.0", "i", "kiot", "k"));
 	client->_send_buff.append(RPL_I_SUPPORT(client->GetNickname(), "CHANNELLEN=32 NICKLEN=10 TOPICLEN=307"));
 }

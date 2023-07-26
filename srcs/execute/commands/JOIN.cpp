@@ -47,10 +47,10 @@ void JOIN(Server *server, Client *client, cmdList *cmd)
 			continue ;
 		}
 
-		// If this client is banned.
-		if (channel->GetMode().find('b') != std::string::npos && channel->IsBanned(nickname))
+		// If this channel has invite-only mode.
+		if (channel->GetMode().find('i') != std::string::npos)
 		{
-			client->_send_buff.append(ERR_BANNED_FROM_CHAN(nickname, channel_name));
+			client->_send_buff.append(ERR_INVITE_ONLY_CHAN(channel_name));
 			continue ;
 		}
 		
@@ -115,7 +115,7 @@ void SendChanInfos(Channel *channel, Client *client)
 	while (member != channel->GetClientList().end())
 	{
 		member->second->_send_buff.append(RPL_JOIN(nick, username, channel->GetName()));
-		if (!channel->GetTopic().empty()) // TODO Check original behaviour
+		if (!channel->GetTopic().empty()) 
 			member->second->_send_buff.append(RPL_TOPIC(nick, channel->GetName(), channel->GetTopic()));
 
 		member->second->_send_buff.append(RPL_NAMREPLY(username, channel_symbol, channel->GetName(), channel->GetListOfMembers()));
