@@ -58,4 +58,8 @@
 //INVITE
 # define RPL_INVITING(nickname, user_name, channel_name) ("341 " + nickname + " " + user_name + " " + channel_name + " \r\n")
 
+//PRIVMSG
+# define ERR_NO_RECIPI_ENT(nickname, command) ("411" + nickname + " :No recipient given " + command + " \r\n")
+# define ERR_NO_TEXT_TO_SEND(nickname) ("412" + nickname + " :No text to send \r\n")
+# define RPL_PRIVMSG(nickname, user_name, target, message) (":" + nickname + "!" + user_name + "@localhost PRIVMSG " + target + " :" + message + "\r\n")
 #endif

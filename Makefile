@@ -16,7 +16,7 @@ SRCS		= 	main.cpp				 			\
 				execute/commands/PING.cpp			\
 				execute/commands/TOPIC.cpp			\
 				execute/commands/INVITE.cpp			\
-				execute/commands/WHO.cpp			\
+				execute/commands/PRIVMSG.cpp		\
 
 
 
