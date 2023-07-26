@@ -64,7 +64,11 @@
 # define RPL_PRIVMSG(nickname, user_name, target, message) (":" + nickname + "!" + user_name + "@localhost PRIVMSG " + target + " :" + message + "\r\n")
 
 // WHO
-# define RPL_WHOREPLY(client, channel, nickname, username) (":localhost 352 " + client + " " + channel + nickname + " localhost localhost " + nickname + " H :0 " + username + "\r\n")
-# define RPL_ENDOFWHO(nickname) (":localhost 315 " + nickname + " :End of /WHO list\r\n")
+# define RPL_WHO_REPLY(client, channel, nickname, username) (":localhost 352 " + client + " " + channel + nickname + " localhost localhost " + nickname + " H :0 " + username + "\r\n")
+# define RPL_END_OF_WHO(nickname) (":localhost 315 " + nickname + " :End of /WHO list\r\n")
+
+// WHOIS
+# define RPL_WHOIS_USER(user_nick, user_fullname) (":localhost 311 " + user_nick + " " + user_nick + " localhost * :" + user_fullname + "\r\n")
+# define RPL_END_OF_WHOIS(nickname) (":localhost 318 " + nickname + " :End of /WHOIS list\r\n")
 
 #endif

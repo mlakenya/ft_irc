@@ -106,6 +106,11 @@ void Client::SetFullName(std::string full_name)
 	this->_full_name = full_name;
 }
 
+std::string	Client::GetFullName()
+{
+	return this->_full_name;
+}
+
 cmdList		*Client::GetCmdBuff()
 {
 	return this->_cmd_buff;

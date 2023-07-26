@@ -19,6 +19,7 @@ void TOPIC(Server *server, Client *client, cmdList *cmd);
 void INVITE(Server *server, Client *client, cmdList *cmd);
 void WHO(Server *server, Client *client, cmdList *cmd);
 void PRIVMSG(Server *server, Client *client, cmdList *cmd);
+void WHOIS(Server *server, Client *client, cmdList *cmd);
 
 extern std::map<std::string, void(*)(Server *, Client *, cmdList *)>	command_funcs;
 

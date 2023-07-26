@@ -19,9 +19,9 @@ void WHO(Server *server, Client *client, cmdList *cmd)
 		while (it != channel->GetClientList().end())
 		{
 			if (!it->second->GetModeI())
-				client->_send_buff.append(RPL_WHOREPLY(client->GetNickname(), channel->GetName(), it->second->GetNickname(), it->second->GetUsername()));
+				client->_send_buff.append(RPL_WHO_REPLY(client->GetNickname(), channel->GetName(), it->second->GetUsername(), it->second->GetFullName()));
 			it++;
 		}
-		client->_send_buff.append(RPL_ENDOFWHO(client->GetNickname()));
+		client->_send_buff.append(RPL_END_OF_WHO(client->GetNickname()));
 	}
 }

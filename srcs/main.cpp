@@ -48,6 +48,8 @@ void InitCommandFunctions()
 	command_funcs["NICK"] = *NICK;
 	command_funcs["USER"] = *USER;
 	command_funcs["PASS"] = *PASS;
+	command_funcs["WHO"] = *WHO;
+	command_funcs["WHOIS"] = *WHOIS;
 }
 
 void	set_shutdown_signal(int signal)

@@ -43,6 +43,7 @@ public:
 	std::string	GetUsername();
 	void		SetUsername(std::string username);
 	void		SetFullName(std::string full_name);
+	std::string	GetFullName();
 	cmdList		*GetCmdBuff();
 	void 		SetCmdBuff(cmdList *cmd_buff);
 	void		DeleteCommand(cmdList *cmd);
