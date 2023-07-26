@@ -42,6 +42,9 @@
 # define ERR_CHAN_OP_RIVS_NEEDED(nickname, channel) ("482 " + nickname + " #" + channel + " :You're not channel operator \r\n")
 # define ERR_NO_TON_CHANNEL(nickname, channel) ("442 " + nickname + " #" + channel + " :You're not on that channel \r\n")
 # define ERR_USER_NO_TIN_CHANNEL(nickname, channel) ("441 " + nickname + " #" + channel + " :They aren't on that channel \r\n")
+# define RPL_KICK(nickname, channel_name, user_name, reason) (nickname + ":localhost " + " KICK #" + channel_name + " " + user_name + " " + reason + "\r\n")
+# define RPL_PART(nickname, channel_name, reason) (nickname + ":localhost " + " Exit #" + channel_name + " " + nickname + " " + reason + "\r\n")
+
 
 // MODE
 # define RPL_UMODEIS(nickname, mode_string) ("221 " + nickname + " " + mode_string + " \r\n")

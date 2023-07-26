@@ -8,6 +8,7 @@
 *  List of signatures for server commands.
 */
 
+void PART(Server *server, Client *client, cmdList *cmd);
 void PASS(Server *server, Client *client, cmdList *cmd);
 void NICK(Server *server, Client *client, cmdList *cmd);
 void USER(Server *server, Client *client, cmdList *cmd);
