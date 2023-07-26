@@ -36,22 +36,15 @@ int main(int argc, char **argv)
 // Functions should be declared in Commands.hpp file.
 void InitCommandFunctions()
 {
-	// command_funcs["INVITE"] = INVITE;
+	// command_funcs["OPER"] = OPER;
+	command_funcs["WHO"] = *WHO;
+	command_funcs["PING"] = *PING;
+	command_funcs["INVITE"] = *INVITE;
+	command_funcs["TOPIC"] = *TOPIC;
+	command_funcs["MODE"] = *MODE; //i t k o
 	command_funcs["JOIN"] = *JOIN;
 	command_funcs["KICK"] = *KICK;
-	// command_funcs["KILL"] = KILL;
-	// command_funcs["LIST"] = LIST;
-	// command_funcs["MODE"] = MODE; //
-	// command_funcs["MOTD"] = MOTD;
-	// command_funcs["NAMES"] = NAMES;
 	command_funcs["NICK"] = *NICK;
-	// command_funcs["NOTICE"] = NOTICE;
-	// command_funcs["OPER"] = OPER;
-	// command_funcs["PART"] = PART;
-	// command_funcs["PING"] = PING; //
-	// command_funcs["PRIVMSG"] = PRIVMSG; //
-	// command_funcs["QUIT"] = QUIT; //
-	// command_funcs["TOPIC"] = TOPIC;
 	command_funcs["USER"] = *USER;
 	command_funcs["PASS"] = *PASS;
 }

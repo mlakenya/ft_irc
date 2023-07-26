@@ -66,6 +66,18 @@ void Client::SetStatus(UserStatus status)
 
 }
 
+void	Client::SetModeI(bool i)
+{
+	this->mode_i = i;
+}
+
+
+bool	Client::GetModeI()
+{
+	return this->mode_i;
+}
+
+
 std::string	Client::GetNickname()
 {
 	return this->_nickname;

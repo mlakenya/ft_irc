@@ -16,12 +16,13 @@ class Client
 {
 private:
 	int				_fd;
-
 	std::string		_nickname;
 	std::string		_username;
 	std::string		_full_name;
 	UserStatus		_status;
 	cmdList			*_cmd_buff;
+	bool			mode_i;
+
 
 public:
 	std::string		_recv_buff;
@@ -33,6 +34,8 @@ public:
 	void		ClearCmdBuff();
 
 	/*    ===== Accessors =====     */
+	void		SetModeI(bool i);
+	bool		GetModeI();
 	UserStatus	GetStatus();
 	void		SetStatus(UserStatus);
 	std::string	GetNickname();

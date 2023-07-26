@@ -274,6 +274,8 @@ void	Channel::RemoveMode(std::string const mode)
 {
 	size_t pos = _mode.find(mode);
 	_mode.erase(pos, 1);
+	if(_mode.size() == 1)
+		_mode = "";
 }
 
 void	Channel::RemovePassword()

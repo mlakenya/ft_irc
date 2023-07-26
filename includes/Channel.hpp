@@ -26,14 +26,14 @@ public:
 
 	/* Accessors */
 	std::string&					GetName();
-	std::string&					GetTopic() ;
-	std::string&					GetMode() ;
-	std::string&					GetPassword() ;
-	int&							GetCapacityLimit() ;
-	std::vector<std::string>&		GetOperators() ;
-	std::vector<std::string>&		GetKickedUsers() ;
-	std::vector<std::string>&		GetBannedUsers() ;
-	std::vector<std::string>&		GetVoicedUsers() ;
+	std::string&					GetTopic();
+	std::string&					GetMode();
+	std::string&					GetPassword();
+	int&							GetCapacityLimit();
+	std::vector<std::string>&		GetOperators();
+	std::vector<std::string>&		GetKickedUsers();
+	std::vector<std::string>&		GetBannedUsers();
+	std::vector<std::string>&		GetVoicedUsers();
 	std::map <std::string,Client*>&	GetClientList();
 	std::string						GetListOfMembers();
 	std::string						GetSymbol();

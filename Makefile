@@ -12,6 +12,11 @@ SRCS		= 	main.cpp				 			\
 				execute/commands/USER.cpp			\
 				execute/commands/JOIN.cpp			\
 				execute/commands/KICK.cpp			\
+				execute/commands/MODE.cpp			\
+				execute/commands/PING.cpp			\
+				execute/commands/TOPIC.cpp			\
+				execute/commands/INVITE.cpp			\
+				execute/commands/WHO.cpp			\
 
 
 

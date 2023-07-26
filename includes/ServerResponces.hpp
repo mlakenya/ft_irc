@@ -4,6 +4,7 @@
 // Common
 # define ERR_UNKNOWN_COMMAND(nickname, command) (":localhost 421 " + nickname + " " + command + " :Unknown command\r\n")
 # define ERR_NEED_MORE_PARAMS(nickname, command) (":localhost 461 " + nickname + " " + command + " :Not enough parameters.\r\n")
+# define ERR_NO_SUCH_CHANNEL(nickname, channel) ("403 " + nickname + " #" + channel + " :No such channel \r\n")
 
 
 // Welcome
@@ -33,14 +34,28 @@
 # define ERR_CHANNEL_IS_FULL(nickname, channel) ("471 " + nickname + " #" + channel + " :Cannot join channel (+l)\r\n")
 # define ERR_BANNED_FROM_CHAN(nickname, channel) ("474 " + nickname + " #" + channel + " :Cannot join channel (+b)\r\n")
 # define RPL_JOIN(nickname, username, channel) (":" + nickname + "!" + username + "@localhost JOIN :#" +  channel + "\r\n")
-# define RPL_TOPIC(nickname, channel, topic) (":localhost 332 " + nickname + " #" + channel + " " + topic + "\r\n")
+# define RPL_TOPIC(nickname, channel, topic) (":localhost 332 " + nickname + " #" + channel + " " + topic + " \r\n")
 # define RPL_NAMREPLY(nickname, symbol, channel, list_of_nicks) (":localhost 353 " + username + " " + symbol + " #" + channel + " :" + list_of_nicks + "\r\n")
 # define RPL_ENDOFNAMES(nickname, channel) (":localhost 366 " + username + " #" + channel + " :End of /NAMES list.\r\n")
 
 // KICK
-# define ERR_NO_SUCH_CHANNEL(nickname, channel) ("403 " + nickname + " #" + channel + " :No such channel \r\n")
 # define ERR_CHAN_OP_RIVS_NEEDED(nickname, channel) ("482 " + nickname + " #" + channel + " :You're not channel operator \r\n")
 # define ERR_NO_TON_CHANNEL(nickname, channel) ("442 " + nickname + " #" + channel + " :You're not on that channel \r\n")
 # define ERR_USER_NO_TIN_CHANNEL(nickname, channel) ("441 " + nickname + " #" + channel + " :They aren't on that channel \r\n")
+
+// MODE
+# define RPL_UMODEIS(nickname, mode_string) ("221 " + nickname + " " + mode_string + " \r\n")
+# define RPL_MODE_USER(nickname, mode_string) (":" + nickname + " MODE " + nickname + " :" + mode_string + "\r\n")
+# define ERR_NO_SUCH_NICK(nickname, user_name) ("401 " + nickname + " " + user_name + " :No such nick/channel \r\n")
+# define RPL_CHANNEL_MODEIS(nickname, channel, mode_string) ("324 " + nickname + " " + channel + " " + mode_string + " \r\n")
+# define ERR_UMODE_UNKNOWN_FLAG (nickname) ("501" + nickname + " :Unknown MODE flag \r\n")
+
+
+//PING
+# define ERR_NO_ORIGIN(nickname) ("409 " + nickname + " #" + " :No origin specified \r\n")
+# define RPL_PONG(nickname, user_name) (":" + nickname + "!" + user_name + "@localhost PONG :" + "localhost" + "\r\n")
+
+//INVITE
+# define RPL_INVITING(nickname, user_name, channel_name) ("341 " + nickname + " " + user_name + " " + channel_name + " \r\n")
 
 #endif
