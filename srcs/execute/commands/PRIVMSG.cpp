@@ -32,6 +32,14 @@ void PRIVMSG(Server *server, Client *client, cmdList *cmd)
 
         std::map<std::string, Client*> clients_on_chennel = chennel->GetClientList();
         std::map <std::string, Client*>::iterator it_client = clients_on_chennel.begin();
+
+	    std::map <std::string, Client*>::iterator it_client_for_chenel = chennel->GetClientList().find(nickname);
+	
+        if(it_client_for_chenel == chennel->GetClientList().end())
+        {
+            client->_send_buff.append(ERR_NO_TON_CHANNEL(nickname, channel_name));
+            return;
+        }
         
         for(; it_client != clients_on_chennel.end(); it_client++)
 		{
