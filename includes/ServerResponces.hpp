@@ -51,7 +51,7 @@
 # define RPL_UMODEIS(nickname, mode_string) ("221 " + nickname + " " + mode_string + " \r\n")
 # define RPL_MODE_USER(nickname, mode_string) (":" + nickname + " MODE " + nickname + " :" + mode_string + "\r\n")
 # define ERR_NO_SUCH_NICK(nickname, user_name) ("401 " + nickname + " " + user_name + " :No such nick/channel \r\n")
-# define RPL_CHANNEL_MODEIS(nickname, channel, mode_string) ("324 " + nickname + " " + channel + " " + mode_string + " \r\n")
+# define RPL_CHANNEL_MODEIS(nickname, channel, mode_string) ("324 " + nickname + " #" + channel + " " + mode_string + " \r\n")
 # define ERR_UMODE_UNKNOWN_FLAG (nickname) ("501" + nickname + " :Unknown MODE flag \r\n")
 
 

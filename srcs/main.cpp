@@ -37,7 +37,6 @@ int main(int argc, char **argv)
 void InitCommandFunctions()
 {
 	command_funcs["PART"] = *PART;
-	command_funcs["QUIT"] = *QUIT;
 	command_funcs["PRIVMSG"] = *PRIVMSG;
 	command_funcs["PING"] = *PING;
 	command_funcs["INVITE"] = *INVITE;

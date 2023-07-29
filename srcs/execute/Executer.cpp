@@ -2,7 +2,7 @@
 #include "../../includes/Client.hpp"
 #include "../../includes/Commands.hpp"
 
-void Execute(Server *server, Client *client)
+int Execute(Server *server, Client *client)
 {
 	cmdList *cmd;
 	if (DEBUG)
@@ -10,10 +10,8 @@ void Execute(Server *server, Client *client)
 	
 	// Do not execute commands if the client is deleted.
 	if (client->GetStatus() == DELETED)
-		return ;
+		return 0;
 	
-	// To check if the client is still exists after execution.
-	int fd = client->GetSocket();
 	cmd = client->GetCmdBuff();
 	// Iterate through the commands.
 	while (cmd != NULL)
@@ -40,20 +38,22 @@ void Execute(Server *server, Client *client)
 			std::cout << "Execute command: " << cmd->command << std::endl;
 
 		// Trying to find a command and execute it.
-		if (command_funcs.find(cmd->command) != command_funcs.end()
+		if (cmd->command == "QUIT")
+		{
+			server->DeleteOnQuit(client);
+			return FAILURE;
+		}
+		else if (command_funcs.find(cmd->command) != command_funcs.end()
 			&& (cmd->command != "PASS" || client->GetStatus() == PASSWORD))
 			command_funcs[cmd->command](server, client, cmd);
 		else if (cmd->command != "CAP")
 			client->_send_buff.append(ERR_UNKNOWN_COMMAND(client->GetNickname(), cmd->command));
 		
-		std::cout << "Here execute" << std::endl;
-		std::map<int, Client*> *clients = server->GetClients();
-		if (clients->find(fd) == clients->end())
-			throw new std::runtime_error("Client disconected");
-		std::cout << "Here execute2" << std::endl;
 		cmdList *next = cmd->next;
 		client->DeleteCommand(cmd);
 
 		cmd = next;
 	}
+
+	return 0;
 }

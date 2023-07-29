@@ -34,12 +34,13 @@ void PART(Server *server, Client *client, cmdList *cmd)
 		reason = cmd->trailing;
 
 	std::map<std::string, Client*> clients_on_chennel = chennel->GetClientList();
-    std::map <std::string, Client*>::iterator it_client_it = clients_on_chennel.begin();
+	std::map <std::string, Client*>::iterator it_client_it = clients_on_chennel.begin();
 
 	for(; it_client_it != clients_on_chennel.end(); it_client_it++)
 	{
 		it_client_it->second->_send_buff.append(RPL_PART(nickname, channel_name, reason));
 	}
 
+	std::cout << "End of Part command" << std::endl;
     chennel->RemoveClient(nickname);
 }

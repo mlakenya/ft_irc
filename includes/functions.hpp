@@ -7,7 +7,7 @@ class Server;
 
 void ServerManager(Server *server);
 void ParseMessage(Client *client, std::string message);
-void Execute(Server *server, Client *client);
+int	 Execute(Server *server, Client *client);
 void InitCommandFunctions();
 void set_shutdown_signal(int signal);
 

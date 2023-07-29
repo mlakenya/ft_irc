@@ -28,7 +28,7 @@ void JOIN(Server *server, Client *client, cmdList *cmd)
 			channel = server->CreateChannel(channel_name);
 		else 
 			channel = it->second;
-		
+
 		if (channel->GetMode().find('k') != std::string::npos)
 		{
 			std::string key = GetPassword(cmd->parameters[1]);
@@ -38,7 +38,7 @@ void JOIN(Server *server, Client *client, cmdList *cmd)
 				continue ;
 			}
 		}
-		
+
 		// If the channel has a limit, and it's full.
 		if (channel->GetMode().find('l') != std::string::npos
 			 && (int)channel->GetClientList().size() >= channel->GetCapacityLimit())
@@ -53,7 +53,7 @@ void JOIN(Server *server, Client *client, cmdList *cmd)
 			client->_send_buff.append(ERR_INVITE_ONLY_CHAN(channel_name));
 			continue ;
 		}
-		
+
 		channel->AddClient(client);
 		if (channel->GetOperators().empty())
 			channel->AddFirstOperator(nickname);

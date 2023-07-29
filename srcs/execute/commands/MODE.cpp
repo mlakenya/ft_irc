@@ -15,9 +15,12 @@ void MODE(Server *server, Client *client, cmdList *cmd)
 	std::string target = cmd->parameters[0];
 	std::string mode_string;
 
-	if(cmd->parameters.size() > 1)
-		mode_string = cmd->parameters[1];
-	cmd->parameters.erase(cmd->parameters.begin(), cmd->parameters.begin() + 2);
+	cmd->parameters.erase(cmd->parameters.begin());
+	if(cmd->parameters.size() > 0)
+	{
+		mode_string = cmd->parameters[0];
+		cmd->parameters.erase(cmd->parameters.begin());
+	}
 
 	if(target[0] == '#')
 	{
@@ -54,8 +57,10 @@ void handleChannelMode(Server *server, Client *client, cmdList *cmd, std::string
 	Channel* channel = it->second;
 	if(modes.empty() || (modes[0] != '+' && modes[0] != '-'))
 	{
+		if (DEBUG)
+			std::cout << "Empty modes, return channel modes" << std::endl;
 		client->_send_buff.append(RPL_CHANNEL_MODEIS(nickname, channel_name, channel->GetMode()));
-		return;
+		return ;
 	}
 	
 	// If client wants to set/remove modes, he has to be operator.
@@ -83,7 +88,7 @@ void handleChannelMode(Server *server, Client *client, cmdList *cmd, std::string
 					channel->RemoveMode(std::string(1, modes[i]));
 			}
 		}
-		client->_send_buff.append(RPL_CHANNEL_MODEIS(nickname, channel_name, channel->GetMode()));
+		client->_send_buff.append(RPL_CHANNEL_MODEIS(nickname, channel_name,  channel->GetMode()));
 	}
 }
 
@@ -93,6 +98,8 @@ void addChannelModes(std::string modes, Channel *channel, cmdList *cmd)
 
 	for(unsigned long i = 1; modes.size() > i; i++)
 	{
+		if (DEBUG)
+			std::cout << "Trying to set new mode: " << modes[i] << std::endl;
 		char mode = modes[i];
 
 		// If this flag is already in channel.
@@ -100,7 +107,7 @@ void addChannelModes(std::string modes, Channel *channel, cmdList *cmd)
 			continue;
 		
 		// If this mode is unacceptable on this server.
-		if (acceptableMode(mode))
+		if (!acceptableMode(mode))
 			continue;
 
 		if (mode != 'o')
@@ -129,7 +136,8 @@ void addChannelModes(std::string modes, Channel *channel, cmdList *cmd)
 		}
 	}
 
-	channel->AddMode(mode_leter);
+	if (!mode_leter.empty())
+		channel->AddMode(mode_leter);
 }
 
 void handleUserMode(Server *server, Client *client, std::string modes, std::string client_name)

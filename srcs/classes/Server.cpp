@@ -11,6 +11,7 @@ Server::~Server()
 {
 	delete[] this->_welcomeMessages;
 	
+	std::cout << "Before client delete" << std::endl;
 	std::map<int, Client *>::iterator it = this->_clients.begin();
 	while (it != this->_clients.end())
 	{
@@ -18,6 +19,14 @@ Server::~Server()
 		it++;
 	}
 	this->_clients.clear();
+	std::cout << "After client delete" << std::endl;
+	std::map<std::string, Channel *>::iterator it_chan = this->_channels.begin();
+	while (it_chan != this->_channels.end())
+	{
+		delete it_chan->second;
+		it_chan++;
+	}
+	this->_channels.clear();
 
 	std::cout << "Bye bye... Have a good day!" << std::endl;
 }
@@ -87,7 +96,7 @@ void Server::HandleClientRequest(int client_fd)
 	{
 		std::cout << "Message from client №" << client_fd << ": " << message << std::endl;
 		client = this->_clients.find(client_fd)->second;
-		client->_recv_buff += message;  // TODO dont give unknown command form nc
+		client->_recv_buff += message;
 
 		if (client->_recv_buff.find("\r\n") != std::string::npos)
 		{
@@ -117,15 +126,12 @@ void Server::HandleClientRequest(int client_fd)
 				}
 			}
 
-			try
+			if( Execute(this, client) == FAILURE)
 			{
-				Execute(this, client);
+				std::stringstream ss;
+				ss << "Client №" << client_fd << " disconnected from the server.";
+				throw std::runtime_error(ss.str());
 			}
-			catch(std::runtime_error ex)
-			{
-				std::cout << "Here" << std::endl;
-				return ;
-			} 
 		}
 	}
 	else
@@ -139,6 +145,7 @@ void Server::HandleClientRequest(int client_fd)
 			ss << "Client №" << client_fd << " disconnected from the server.";
 		throw std::runtime_error(ss.str());
 	}
+	std::cout << "HandleClientRequest ended" << std::endl;
 }
 
 void Server::MakeResponse(int client_fd)
@@ -171,7 +178,7 @@ void Server::MakeResponse(int client_fd)
 void Server::PollError(int client_fd)
 {
 	if (client_fd == this->_server_socket)
-		throw new std::runtime_error("ERROR. Server socket fucked up.");
+		throw new std::runtime_error("ERROR. Server socket error occured.");
 	else
 	{
 		this->DelClient(client_fd);
@@ -285,6 +292,11 @@ Channel	*Server::CreateChannel(std::string channel_name)
 	Channel	*channel = new Channel(channel_name);
 	this->_channels.insert(std::pair<std::string, Channel*>(channel_name, channel));
 	return channel;
+}
+
+void Server::DeleteOnQuit(Client *client)
+{
+	close(client->GetSocket());
 }
 
 /*

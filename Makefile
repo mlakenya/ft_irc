@@ -20,7 +20,6 @@ SRCS		= 	main.cpp				 			\
 				execute/commands/WHO.cpp			\
 				execute/commands/WHOIS.cpp			\
 				execute/commands/PART.cpp			\
-				execute/commands/QUIT.cpp			\
 
 
 

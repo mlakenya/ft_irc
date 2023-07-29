@@ -40,6 +40,7 @@ public:
 	void PollError(int client_fd);
 	void SendWelcomeMsg(Client *client);
 	Channel	*CreateChannel(std::string channel_name);
+	void DeleteOnQuit(Client *client);
 
 	int 							GetServerSocket();
 	std::string 					GetPassword();

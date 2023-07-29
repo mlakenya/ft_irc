@@ -102,6 +102,7 @@ void	Channel::RemoveClient(std::string &clientName)
 	if (it != _clientList.end())
 		this->_clientList.erase(it);
 	
+	
 	// This function checks if the ClientName is present in the Operator list
 	// and if so, deletes it.
 	RemoveOperator(clientName); 
@@ -140,8 +141,10 @@ void	Channel::RemoveOperator(std::string operator_name)
 	std::vector<std::string>::iterator it;
 	for (it = _operators.begin(); it != _operators.end(); it++)
 	{
-		if (*it == operator_name)
+		if (*it == operator_name) {
 			_operators.erase(it);
+			break ;
+		}
 	}
 }
 
@@ -166,6 +169,8 @@ bool 	Channel::IsOperator(std::string &operator_name)
 
 void	Channel::AddMode(std::string const mode)
 {
+	if (DEBUG)
+		std::cout << "Adding mode to channed " << this->_name << " " << mode << std::endl;
 	if (_mode.empty() == true)
 		_mode = "+" + mode;
 	else 
